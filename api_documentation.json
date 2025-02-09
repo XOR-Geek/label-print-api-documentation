@@ -1,0 +1,171 @@
+{
+  "definitions": {},
+  "info": {
+    "description": "powered by Flasgger",
+    "termsOfService": "/tos",
+    "title": "Labelprint System API",
+    "version": "0.0.1"
+  },
+  "paths": {
+    "/api/adjust_label/get_data": {
+      "get": {
+        "description": "<br/>This endpoint receives a GET request with a user ID as a query parameter, <br/>verifies the authentication token, and fetches the adjustment data <br/>associated with the user ID from `adjust_service`.<br/><br/>Query Parameters:<br/>    - user_id (str): The ID of the user for whom adjustment data is requested.<br/><br/>Headers:<br/>    - Authorization (str): Bearer token to authenticate the user.<br/>    <br/>Returns:<br/><br/>    - 200 OK: JSON response with the adjustment data if retrieval is successful.<br/>    - 401 Unauthorized: JSON error message if the authorization token is <br/>      missing or invalid.<br/>    - 500 Internal Server Error: JSON error message with details if an <br/>      unexpected error occurs.  <br/>",
+        "parameters": [
+          {
+            "description": "Bearer token to authenticate the user.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The ID of the user for whom adjustment data is requested.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adjustment data retrieved successfully.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "example": {
+                    "adjustment_value": 5.75,
+                    "description": "Adjustment for label printing error",
+                    "label_id": "lbl_001"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Retrieves adjustment label data for a specified user.",
+        "tags": [
+          "Adjust"
+        ]
+      }
+    },
+    "/api/adjust_label/store": {
+      "post": {
+        "description": "<br/>This endpoint receives a POST request with adjustment data and saves it <br/>using `adjust_service.store_adjust_details` after verifying the <br/>authorization token.<br/><br/>Headers:<br/>    - Authorization (str): Bearer token to authenticate the user.<br/><br/>Returns:<br/><br/>    - 200 OK: JSON response with stored data if the operation is successful.<br/>    - 401 Unauthorized: JSON error message if the authorization token <br/>        is missing or invalid.<br/>    - 500 Internal Server Error: JSON error message with details if an <br/>        unexpected error occurs.<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token to authenticate the user.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the adjustment data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "adjustment_value": {
+                  "example": 5.75,
+                  "type": "number"
+                },
+                "description": {
+                  "example": "Adjustment for label printing error",
+                  "type": "string"
+                },
+                "label_id": {
+                  "example": "lbl_001",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label_id",
+                "adjustment_value"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data stored successfully.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "object"
+                },
+                "message": {
+                  "example": "Data stored successfully",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Stores adjustment label data in the database.",
+        "tags": [
+          "Adjust"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
