@@ -3,7 +3,7 @@
   "definitions": {},
   "host": "dev.wacoa.jp",
   "info": {
-    "description": "powered by Flasgger",
+    "description": "This is the API documentation for the Labelprint System API. It provides information on the endpoints, parameters, and responses for the API.",
     "termsOfService": "/tos",
     "title": "Labelprint System API",
     "version": "0.0.1"
@@ -223,5 +223,13 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Enter your Bearer token as `Bearer <your_token>`",
+      "in": "header",
+      "name": "Authorization",
+      "type": "apiKey"
+    }
+  },
   "swagger": "2.0"
 }
