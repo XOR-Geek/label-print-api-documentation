@@ -13,7 +13,14 @@ window.onload = function() {
     plugins: [
       SwaggerUIBundle.plugins.DownloadUrl
     ],
-    layout: "StandaloneLayout"
+    layout: "StandaloneLayout",
+    // Add the requestInterceptor
+    requestInterceptor: function(req) {
+      if (req.url.includes("/api/")) {
+        req.url = req.url.replace("/api/", "/label-print-api/");
+      }
+      return req;
+    }
   });
 
   //</editor-fold>

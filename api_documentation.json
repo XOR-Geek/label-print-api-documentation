@@ -1,5 +1,7 @@
 {
+  "basePath": "/",
   "definitions": {},
+  "host": "dev.wacoa.jp",
   "info": {
     "description": "powered by Flasgger",
     "termsOfService": "/tos",
@@ -218,5 +220,8 @@
       }
     }
   },
+  "schemes": [
+    "https"
+  ],
   "swagger": "2.0"
 }
