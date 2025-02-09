@@ -165,6 +165,57 @@
           "Adjust"
         ]
       }
+    },
+    "/api/publish_news": {
+      "get": {
+        "description": "<br/>This endpoint retrieves the necessary information for creating and publishing news.<br/><br/><br/>Responses:<br/>    - 200 OK: Returns a JSON object containing the data required for publishing news.<br/>    - 401 Unauthorized: If the authorization token is missing or invalid.<br/>    - 500 Internal Server Error: If there is an unexpected error during processing.<br/><br/> ",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "description": "The publish news data.",
+                      "example": {
+                        "content": "Details about the breaking news...",
+                        "headline": "Breaking News!"
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "A JSON object containing the data required for publishing news."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "Detailed error message if available.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "Internal Server Error",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error. An unexpected error occurred during processing."
+          }
+        },
+        "summary": "Fetch data required for publishing news.",
+        "tags": [
+          "News"
+        ]
+      }
     }
   },
   "swagger": "2.0"
