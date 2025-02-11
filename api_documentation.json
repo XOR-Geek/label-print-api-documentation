@@ -263,11 +263,19 @@
             "type": "string"
           },
           {
-            "description": "The ID of the group to be deleted.",
-            "in": "query",
-            "name": "group_id",
+            "description": "The JSON payload containing the adjustment data.",
+            "in": "body",
+            "name": "body",
             "required": true,
-            "type": "string"
+            "schema": {
+              "properties": {
+                "group_id": {
+                  "example": "1",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
           }
         ],
         "responses": {
@@ -366,9 +374,12 @@
                 "group_data": {
                   "description": "The group data for editing.",
                   "example": {
-                    "description": "Description of Group A",
                     "group_id": "12345",
-                    "group_name": "Group A"
+                    "group_name_sub": "group_name_sub",
+                    "insert_by": "insert_by",
+                    "insert_date": "insert_date",
+                    "update_by": "update_by",
+                    "update_date": "update_date"
                   },
                   "type": "object"
                 },
@@ -456,10 +467,6 @@
                 "groups": {
                   "items": {
                     "properties": {
-                      "description": {
-                        "example": "Group description",
-                        "type": "string"
-                      },
                       "id": {
                         "example": "group_1",
                         "type": "string"
@@ -571,16 +578,16 @@
                 "groups": {
                   "items": {
                     "properties": {
-                      "description": {
-                        "example": "Group description",
+                      "group_name": {
+                        "example": "Group Name",
+                        "type": "string"
+                      },
+                      "group_name_sub": {
+                        "example": "Group Name",
                         "type": "string"
                       },
                       "id": {
                         "example": "group_1",
-                        "type": "string"
-                      },
-                      "name": {
-                        "example": "Group Name",
                         "type": "string"
                       }
                     },
@@ -654,12 +661,12 @@
             "required": true,
             "schema": {
               "properties": {
-                "description": {
-                  "example": "This is a new group.",
-                  "type": "string"
-                },
                 "group_name": {
                   "example": "Group A",
+                  "type": "string"
+                },
+                "insert_by": {
+                  "insert_by": "1",
                   "type": "string"
                 }
               },
