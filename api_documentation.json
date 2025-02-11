@@ -327,6 +327,11 @@
             }
           }
         },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "summary": "Mark a group as deleted by updating its delete date.",
         "tags": [
           "Group"
