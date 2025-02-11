@@ -537,38 +537,36 @@
     "/api/password_reset_store": {
       "post": {
         "description": "<br/>This endpoint handles the password reset process by accepting a JSON payload<br/>containing user identification and new password information. It processes the<br/>request and returns an appropriate response indicating the outcome of the <br/>password reset attempt.<br/><br/>Args:<br/>    data (dict): A dictionary containing the following keys:<br/>        - 'user_id' (str): The ID of the user whose password is to be reset.<br/>        - 'new_password' (str): The new password to set for the user.<br/>        - 'confirm_password' (str): Confirmation of the new password to ensure<br/>          both entries match.<br/><br/>Returns:<br/>    Response: A JSON response with a message indicating the success <br/>              or failure of the operation, along with an appropriate <br/>              HTTP status code.<br/>",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "confirm_password": {
-                    "description": "The confirmation of the new password to ensure both entries match.",
-                    "example": "newStrongPassword123!",
-                    "type": "string"
-                  },
-                  "new_password": {
-                    "description": "The new password to be set for the user.",
-                    "example": "newStrongPassword123!",
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "description": "The ID of the user whose password is being reset.",
-                    "example": "user_123",
-                    "type": "string"
-                  }
+        "parameters": [
+          {
+            "description": "The JSON payload containing user ID and new password information.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "confirm_password": {
+                  "example": "newPassword123",
+                  "type": "string"
                 },
-                "required": [
-                  "user_id",
-                  "new_password",
-                  "confirm_password"
-                ],
-                "type": "object"
-              }
+                "new_password": {
+                  "example": "newPassword123",
+                  "type": "string"
+                },
+                "user_id": {
+                  "example": "user_123",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "user_id",
+                "new_password",
+                "confirm_password"
+              ],
+              "type": "object"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "content": {
