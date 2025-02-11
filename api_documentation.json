@@ -189,18 +189,18 @@
             "required": true,
             "schema": {
               "properties": {
-                "password": {
-                  "example": "securepassword",
+                "LOGIN_ID": {
+                  "example": "user_123",
                   "type": "string"
                 },
-                "user_id": {
-                  "example": "user_123",
+                "PASSWORD": {
+                  "example": "securepassword",
                   "type": "string"
                 }
               },
               "required": [
-                "user_id",
-                "password"
+                "LOGIN_ID",
+                "PASSWORD"
               ],
               "type": "object"
             }
