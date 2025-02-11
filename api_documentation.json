@@ -263,7 +263,7 @@
           },
           {
             "description": "The ID of the group to be deleted.",
-            "in": "body",
+            "in": "query",
             "name": "group_id",
             "required": true,
             "type": "string"
@@ -340,7 +340,7 @@
     },
     "/api/group/edit": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>Query Parameters:<br/>    - group_id: The ID of the group to be edited.<br/><br/>Returns:<br/>    JSON: A JSON response containing the group data for editing and HTTP status code.<br/>        - On success: 200 OK with the group data.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -512,7 +512,7 @@
     },
     "/api/group/group_list": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>Query Parameters:<br/>    - group_name: (optional) Filter groups by this name.<br/>    - group_name_sub: (optional) Filter groups by this substring in their name.<br/>    - page: (optional) Specify the page number for pagination.<br/><br/>Returns:<br/>    JSON: A JSON response containing the filtered list of groups and HTTP status code.<br/>        - On success: 200 OK with group data.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -626,7 +626,7 @@
     },
     "/api/group/store": {
       "post": {
-        "description": "<br/>",
+        "description": "<br/>Request Body:<br/>    JSON: The data of the group to be stored.<br/><br/>Returns:<br/>    JSON: A JSON response indicating the result of the store operation.<br/>        - On success: 200 Created with the created group data.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -709,7 +709,7 @@
     },
     "/api/group/update": {
       "post": {
-        "description": "<br/>",
+        "description": "<br/><br/>Request Body:<br/>    JSON: The updated data for the group.<br/><br/>Returns:<br/>    JSON: A JSON response indicating the result of the update operation.<br/>        - On success: 200 OK with the updated group data.<br/>        - On failure: 401 Unauthorized if the token is missing or invalid,<br/>          or 500 Internal Server Error for other issues.<br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
