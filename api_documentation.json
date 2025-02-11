@@ -178,9 +178,97 @@
         ]
       }
     },
+    "/api/get_reset_user_id": {
+      "get": {
+        "description": "<br/>It retrieves the JSON data from the request, which should <br/>contain a one-time reset URL, and calls the <br/>`user_reset_password_mail` method to process the password reset <br/>functionality.<br/><br/>Returns:<br/>    Response: A JSON response with a message indicating the success <br/>              or failure of the operation, along with an appropriate <br/>              HTTP status code.<br/>",
+        "parameters": [
+          {
+            "description": "The one-time reset URL identifier for initiating the password reset process.",
+            "in": "query",
+            "name": "url_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Password reset email sent successfully.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Password reset email sent successfully."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Invalid reset URL.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad Request – If the reset URL is invalid or malformed."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Reset URL not found.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Not Found – If the reset URL does not correspond to any user."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "An unexpected error occurred while sending the password reset email.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "Internal Server Error.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error – Unexpected error during the password reset process."
+          }
+        },
+        "summary": "Endpoint for sending a password reset email.",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
     "/api/login": {
       "post": {
-        "description": "<br/>This route accepts a JSON object containing user credentials and returns a token <br/>along with the user record if the authentication is successful.<br/><br/>Request Body:<br/>    - JSON object containing:<br/>        - 'user_id' (str): The ID of the user attempting to log in.<br/>        - 'password' (str): The password of the user attempting to log in.<br/><br/>Responses:<br/>    - 200 OK: Returns a successful login response including:<br/>        - 'message' (str): A success message.<br/>        - 'user_record' (dict): A dictionary containing user details.<br/>        - 'Authorization' (str): A Bearer token for authenticated requests.<br/><br/>    - 401 Unauthorized: Returns an error response if the credentials are invalid.<br/><br/>    - 500 Internal Server Error: Returns an error response if an unexpected error occurs during the authentication process.<br/><br/>Returns:<br/>    Response: A response object with the appropriate status code and JSON payload.<br/><br/>Raises:<br/>    Exception: If an unexpected error occurs during the password update process.<br/>     <br/>",
+        "description": "<br/>This route accepts a JSON object containing user credentials and returns a token <br/>along with the user record if the authentication is successful.<br/><br/>Request Body:<br/>    - JSON object containing:<br/>        - 'login_id' (str): The ID of the user attempting to log in.<br/>        - 'password' (str): The password of the user attempting to log in.<br/><br/>Responses:<br/>    - 200 OK: Returns a successful login response including:<br/>        - 'message' (str): A success message.<br/>        - 'user_record' (dict): A dictionary containing user details.<br/>        - 'Authorization' (str): A Bearer token for authenticated requests.<br/><br/>    - 401 Unauthorized: Returns an error response if the credentials are invalid.<br/><br/>    - 500 Internal Server Error: Returns an error response if an unexpected error occurs during the authentication process.<br/><br/>Returns:<br/>    Response: A response object with the appropriate status code and JSON payload.<br/><br/>Raises:<br/>    Exception: If an unexpected error occurs during the password update process.<br/>     <br/>",
         "parameters": [
           {
             "description": "The JSON payload containing the login data.",
@@ -279,6 +367,377 @@
         ]
       }
     },
+    "/api/logout": {
+      "post": {
+        "description": "<br/>This endpoint handles the POST request for user logout. It retrieves the user's authentication <br/>token from the request headers, verifies the token, and calls the `user_logout` method to <br/>remove the token from the user's record in Firestore.<br/><br/>Request Headers:<br/>    Authorization (str): The user's authentication token, typically in the format 'Bearer <token>'.<br/><br/>Request Body:<br/>    dict: A JSON object containing the user information required for logout, including:<br/>        - user_id (str): The ID of the user attempting to log out.<br/><br/>Returns:<br/>    dict: A JSON object containing the response message or error message.<br/>    int: An HTTP status code indicating the result of the operation:<br/>        - 200 if the logout is successful.<br/>        - 500 if an internal server error occurs during processing.<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authenticating the user.",
+            "in": "header",
+            "name": "Authorization",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the user information for logout.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "user_id": {
+                  "example": "user_123",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "user_id"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Logout successful.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Logout successful."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "An unexpected error occurred during logout.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "Internal Server Error",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error – Unexpected error during logout."
+          }
+        },
+        "summary": "Logs out a user by removing their authentication token from the server.",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/api/password_reset": {
+      "post": {
+        "description": "<br/>This endpoint handles the password reset process by accepting a JSON payload<br/>containing user identification and new password information. It processes the<br/>request and returns an appropriate response indicating the outcome of the <br/>password reset attempt.<br/><br/>Args:<br/>    data (dict): A dictionary containing the following keys:<br/>        - 'user_id' (str): The ID of the user whose password is to be reset.<br/>        - 'new_password' (str): The new password to set for the user.<br/>        - 'confirm_password' (str): Confirmation of the new password to ensure<br/>          both entries match.<br/><br/>Returns:<br/>    Response: A JSON response with a message indicating the success <br/>              or failure of the operation, along with an appropriate <br/>              HTTP status code.<br/>",
+        "parameters": [
+          {
+            "description": "The JSON payload containing user ID and new password information.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "confirm_password": {
+                  "example": "newPassword123",
+                  "type": "string"
+                },
+                "new_password": {
+                  "example": "newPassword123",
+                  "type": "string"
+                },
+                "user_id": {
+                  "example": "user_123",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "user_id",
+                "new_password",
+                "confirm_password"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Password reset successfully.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Password reset successfully."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Passwords do not match.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad Request – If the passwords do not match or other validation fails."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "An unexpected error occurred during the password reset process.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "Internal Server Error",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error – Unexpected error during password reset."
+          }
+        },
+        "summary": "Reset the password for a user.",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/api/password_reset_store": {
+      "post": {
+        "description": "<br/>This endpoint handles the password reset process by accepting a JSON payload<br/>containing user identification and new password information. It processes the<br/>request and returns an appropriate response indicating the outcome of the <br/>password reset attempt.<br/><br/>Args:<br/>    data (dict): A dictionary containing the following keys:<br/>        - 'user_id' (str): The ID of the user whose password is to be reset.<br/>        - 'new_password' (str): The new password to set for the user.<br/>        - 'confirm_password' (str): Confirmation of the new password to ensure<br/>          both entries match.<br/><br/>Returns:<br/>    Response: A JSON response with a message indicating the success <br/>              or failure of the operation, along with an appropriate <br/>              HTTP status code.<br/>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "confirm_password": {
+                    "description": "The confirmation of the new password to ensure both entries match.",
+                    "example": "newStrongPassword123!",
+                    "type": "string"
+                  },
+                  "new_password": {
+                    "description": "The new password to be set for the user.",
+                    "example": "newStrongPassword123!",
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "description": "The ID of the user whose password is being reset.",
+                    "example": "user_123",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "user_id",
+                  "new_password",
+                  "confirm_password"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Password successfully reset.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Password successfully updated."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Password and confirmation do not match.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad Request – If the provided data is invalid, such as mismatched passwords or missing fields."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "Internal server error during password reset.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "An unexpected error occurred while resetting the password.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error – Unexpected error during the password reset process."
+          }
+        },
+        "summary": "Reset the password for a user.",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
+    "/api/password_update": {
+      "post": {
+        "description": "<br/>This endpoint allows a logged-in user to update their password. It verifies the <br/>user's authorization token, processes the password update request, and returns <br/>the appropriate response based on the success or failure of the operation.<br/><br/>Request Headers:<br/>    - Authorization (str): Bearer token for authenticating the user.<br/><br/>Request Body:<br/>    dict: A JSON object containing:<br/>        - 'shinsei_user_id' (str): The ID of the user whose password is to be updated.<br/>        - 'current_password' (str): The user's current password for verification.<br/>        - 'new_password' (str): The new password to be set.<br/>        - 'confirm_password' (str): A confirmation of the new password.<br/>        - 'password_hint' (str): An optional hint for the new password.<br/><br/><br/>Response: A Flask response object containing:<br/>        <br/>        - int: HTTP status code indicating the result of the operation:<br/>            - 200 if the password is successfully updated.<br/>            - 401 if the authorization token is invalid.<br/>            - 500 if an internal server error occurs during processing.<br/>Returns:<br/>    - dict: A response dictionary which can include:<br/>            - 'message' (str): A success message if the password update is successful.<br/>            - 'error' (str): An error message if the update fails.<br/><br/>Raises:<br/>    Exception: If an unexpected error occurs during the password update process.<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authenticating the user.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the new password data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "confirm_password": {
+                  "example": "newpassword456",
+                  "type": "string"
+                },
+                "current_password": {
+                  "example": "oldpassword123",
+                  "type": "string"
+                },
+                "new_password": {
+                  "example": "newpassword456",
+                  "type": "string"
+                },
+                "password_hint": {
+                  "example": "Hint for the new password",
+                  "type": "string"
+                },
+                "shinsei_user_id": {
+                  "example": "user_123",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "shinsei_user_id",
+                "current_password",
+                "new_password",
+                "confirm_password"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Password updated successfully.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Password updated successfully."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "example": "Unauthorized – Invalid token.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized – Invalid authorization token."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "An unexpected error occurred while updating the password.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "Internal Server Error",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error – Unexpected error."
+          }
+        },
+        "summary": "Updates a user's password.",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    },
     "/api/publish_news": {
       "get": {
         "description": "<br/>This endpoint retrieves the necessary information for creating and publishing news.<br/><br/><br/>Responses:<br/>    - 200 OK: Returns a JSON object containing the data required for publishing news.<br/>    - 500 Internal Server Error: If there is an unexpected error during processing.<br/><br/> ",
@@ -327,6 +786,73 @@
         "summary": "Fetch data required for publishing news.",
         "tags": [
           "News"
+        ]
+      }
+    },
+    "/api/reset_password_link": {
+      "post": {
+        "description": "<br/>This route handles POST requests containing a login ID. It retrieves the login ID from the request data,<br/>invokes the `user_reset_password_link` method to generate and send a password reset link to the user's email,<br/>and returns the appropriate response to the client.<br/><br/>Request Format:<br/>    - JSON object containing the following field:<br/>        - LOGIN_ID (str): The login ID of the user requesting the password reset.<br/><br/>Returns:<br/>    Response: A JSON response containing:<br/>        - Success message or error details, depending on the operation's outcome.<br/>        - HTTP status code indicating the result:<br/>            - 200 if the email with the reset link is sent successfully.<br/>            - 500 if an internal server error occurs during processing.<br/>",
+        "parameters": [
+          {
+            "description": "The JSON payload containing the login ID for password reset.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "LOGIN_ID": {
+                  "example": "user_123",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "LOGIN_ID"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Password reset link sent successfully.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Password reset link sent successfully."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "details": {
+                      "example": "An unexpected error occurred while sending the reset link.",
+                      "type": "string"
+                    },
+                    "error": {
+                      "example": "Internal Server Error",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal Server Error – Unexpected error during password reset."
+          }
+        },
+        "summary": "Endpoint to initiate a password reset process by sending a reset link to the user's email.",
+        "tags": [
+          "Authentication"
         ]
       }
     }
