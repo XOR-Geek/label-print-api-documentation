@@ -35,9 +35,10 @@
               "properties": {
                 "data": {
                   "example": {
-                    "adjustment_value": 5.75,
-                    "description": "Adjustment for label printing error",
-                    "label_id": "lbl_001"
+                    "description": "Adjustment for label printing ",
+                    "id": "",
+                    "line_x": 5.75,
+                    "line_y": 5.75
                   },
                   "type": "object"
                 }
@@ -250,6 +251,572 @@
         ]
       }
     },
+    "/api/group/delete": {
+      "post": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "description": "The ID of the group to be deleted.",
+            "in": "body",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group deleted successfully.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Group Delete successful.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the group with the given ID does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Union 12345 not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Mark a group as deleted by updating its delete date.",
+        "tags": [
+          "Group"
+        ]
+      }
+    },
+    "/api/group/edit": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "description": "The ID of the group to be edited.",
+            "in": "query",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group data for editing.",
+            "schema": {
+              "properties": {
+                "group_data": {
+                  "description": "The group data for editing.",
+                  "example": {
+                    "description": "Description of Group A",
+                    "group_id": "12345",
+                    "group_name": "Group A"
+                  },
+                  "type": "object"
+                },
+                "message": {
+                  "example": "Group Information",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the group with the given ID does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Group 12345 not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Retrieve a group's information for editing.",
+        "tags": [
+          "Group"
+        ]
+      }
+    },
+    "/api/group/group_all_list": {
+      "get": {
+        "description": "<br/>",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of non-deleted groups.",
+            "schema": {
+              "properties": {
+                "groups": {
+                  "items": {
+                    "properties": {
+                      "description": {
+                        "example": "Group description",
+                        "type": "string"
+                      },
+                      "id": {
+                        "example": "group_1",
+                        "type": "string"
+                      },
+                      "name": {
+                        "example": "Group Name",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 10,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during the process.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "An unexpected error occurred while fetching the group data.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Retrieve a list of all groups that are not marked as deleted.",
+        "tags": [
+          "Group"
+        ]
+      }
+    },
+    "/api/group/group_list": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "description": "Filter groups by exact name.",
+            "in": "query",
+            "name": "group_name",
+            "type": "string"
+          },
+          {
+            "description": "Filter groups by a substring in their name.",
+            "in": "query",
+            "name": "group_name_sub",
+            "type": "string"
+          },
+          {
+            "description": "The page number for pagination.",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "Field to sort the results by.",
+            "in": "query",
+            "name": "sort_field",
+            "type": "string"
+          },
+          {
+            "description": "The order of sorting (asc/desc).",
+            "in": "query",
+            "name": "sort_order",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of groups.",
+            "schema": {
+              "properties": {
+                "groups": {
+                  "items": {
+                    "properties": {
+                      "description": {
+                        "example": "Group description",
+                        "type": "string"
+                      },
+                      "id": {
+                        "example": "group_1",
+                        "type": "string"
+                      },
+                      "name": {
+                        "example": "Group Name",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 20,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Retrieve a paginated list of groups with optional filtering.",
+        "tags": [
+          "Group"
+        ]
+      }
+    },
+    "/api/group/store": {
+      "post": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the adjustment data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "description": {
+                  "example": "This is a new group.",
+                  "type": "string"
+                },
+                "group_name": {
+                  "example": "Group A",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group created successfully.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Group created successfully",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Store a new group in the Firestore database.",
+        "tags": [
+          "Group"
+        ]
+      }
+    },
+    "/api/group/update": {
+      "post": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the adjustment data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "description": {
+                  "example": "This is a updated group.",
+                  "type": "string"
+                },
+                "group_id": {
+                  "example": "001",
+                  "type": "string"
+                },
+                "group_name": {
+                  "example": "A Group",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "group_id"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group updated successfully.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Group 12345 updated.",
+                  "type": "string"
+                },
+                "updated_data": {
+                  "description": "The updated group data.",
+                  "example": {
+                    "description": "Updated description for the group.",
+                    "group_id": "12345",
+                    "group_name": "Updated Group"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the group with the given ID does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Group 12345 not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Update an existing group's information.",
+        "tags": [
+          "Group"
+        ]
+      }
+    },
     "/api/login": {
       "post": {
         "description": "<br/>This route accepts a JSON object containing user credentials and returns a token <br/>along with the user record if the authentication is successful.<br/>     <br/>",
@@ -333,11 +900,6 @@
             }
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
         "summary": "Authenticates a user and logs them in.",
         "tags": [
           "Authentication"
@@ -681,47 +1243,41 @@
     },
     "/api/publish_news": {
       "get": {
-        "description": "<br/>This endpoint retrieves the necessary information for creating and publishing news.<br/><br/><br/>Responses:<br/>    - 200 OK: Returns a JSON object containing the data required for publishing news.<br/>    - 500 Internal Server Error: If there is an unexpected error during processing.<br/><br/> ",
+        "description": "<br/>This endpoint retrieves the necessary information for creating and publishing news.<br/><br/>",
         "responses": {
           "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "description": "The publish news data.",
-                      "example": {
-                        "content": "Details about the breaking news...",
-                        "headline": "Breaking News!"
-                      },
-                      "type": "object"
-                    }
+            "description": "A JSON object containing the data required for publishing news.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "description": "The publish news data.",
+                  "example": {
+                    "body": "This is the body of the news article.",
+                    "date": "2025-02-11",
+                    "id": "N/A",
+                    "title": "Sample Title"
                   },
                   "type": "object"
                 }
-              }
-            },
-            "description": "A JSON object containing the data required for publishing news."
+              },
+              "type": "object"
+            }
           },
           "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "details": {
-                      "example": "Detailed error message if available.",
-                      "type": "string"
-                    },
-                    "error": {
-                      "example": "Internal Server Error",
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
+            "description": "Internal Server Error. An unexpected error occurred during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
                 }
-              }
-            },
-            "description": "Internal Server Error. An unexpected error occurred during processing."
+              },
+              "type": "object"
+            }
           }
         },
         "summary": "Fetch data required for publishing news.",
