@@ -180,30 +180,25 @@
     },
     "/api/login": {
       "post": {
-        "description": "<br/>This route accepts a JSON object containing user credentials and returns a token <br/>along with the user record if the authentication is successful.<br/><br/>Request Body:<br/>    - JSON object containing:<br/>        - 'user_id' (str): The ID of the user attempting to log in.<br/>        - 'password' (str): The password of the user attempting to log in.<br/><br/>Responses:<br/>    - 200 OK: Returns a successful login response including:<br/>        - 'message' (str): A success message.<br/>        - 'user_record' (dict): A dictionary containing user details.<br/>        - 'Authorization' (str): A Bearer token for authenticated requests.<br/><br/>    - 401 Unauthorized: Returns an error response if the credentials are invalid.<br/><br/>    - 500 Internal Server Error: Returns an error response if an unexpected error occurs during the authentication process.<br/><br/>Returns:<br/>    Response: A response object with the appropriate status code and JSON payload.<br/><br/>Raises:<br/>    Exception: If an unexpected error occurs during the password update process.<br/>",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "password": {
-                    "example": "securepassword",
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "example": "user_123",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "user_id",
-                  "password"
-                ],
-                "type": "object"
-              }
-            }
+        "description": "<br/>This route accepts a JSON object containing user credentials and returns a token <br/>along with the user record if the authentication is successful.<br/><br/>Request Body:<br/>    - JSON object containing:<br/>        - 'user_id' (str): The ID of the user attempting to log in.<br/>        - 'password' (str): The password of the user attempting to log in.<br/><br/>Responses:<br/>    - 200 OK: Returns a successful login response including:<br/>        - 'message' (str): A success message.<br/>        - 'user_record' (dict): A dictionary containing user details.<br/>        - 'Authorization' (str): A Bearer token for authenticated requests.<br/><br/>    - 401 Unauthorized: Returns an error response if the credentials are invalid.<br/><br/>    - 500 Internal Server Error: Returns an error response if an unexpected error occurs during the authentication process.<br/><br/>Returns:<br/>    Response: A response object with the appropriate status code and JSON payload.<br/><br/>Raises:<br/>    Exception: If an unexpected error occurs during the password update process.<br/>     <br/>",
+        "parameters": [
+          {
+            "description": "The ID of the user attempting to log in.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
           },
-          "required": true
+          {
+            "description": "The password of the user attempting to log in.",
+            "in": "query",
+            "name": "password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": false
         },
         "responses": {
           "200": {
@@ -221,14 +216,6 @@
                     },
                     "user_record": {
                       "properties": {
-                        "email": {
-                          "example": "john.doe@example.com",
-                          "type": "string"
-                        },
-                        "name": {
-                          "example": "John Doe",
-                          "type": "string"
-                        },
                         "user_id": {
                           "example": "user_123",
                           "type": "string"
@@ -280,11 +267,6 @@
             "description": "Internal Server Error."
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
         "summary": "Authenticates a user and logs them in.",
         "tags": [
           "Authentication"
