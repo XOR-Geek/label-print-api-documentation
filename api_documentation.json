@@ -856,12 +856,14 @@
           },
           {
             "description": "The status of the label to filter by.",
+            "example": 1,
             "in": "query",
             "name": "label_status",
-            "type": "string"
+            "type": "number"
           },
           {
             "description": "Start date for filtering the labels.",
+            "example": "2021-01-01",
             "format": "date",
             "in": "query",
             "name": "start_date",
@@ -869,6 +871,7 @@
           },
           {
             "description": "End date for filtering the labels.",
+            "example": "2021-12-31",
             "format": "date",
             "in": "query",
             "name": "end_date",
@@ -876,18 +879,21 @@
           },
           {
             "description": "The name of the office to filter by.",
+            "example": "Tokyo Office",
             "in": "query",
             "name": "office_name",
             "type": "string"
           },
           {
             "description": "Type of receive to filter the labels.",
+            "example": 1,
             "in": "query",
             "name": "receive_type",
-            "type": "string"
+            "type": "number"
           },
           {
             "description": "Page number for pagination.",
+            "example": 1,
             "in": "query",
             "name": "page",
             "type": "integer"
@@ -901,13 +907,46 @@
                 "result": {
                   "items": {
                     "properties": {
+                      "group_id": {
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "type": "string"
+                      },
                       "label_id": {
                         "type": "string"
                       },
-                      "label_name": {
+                      "nm_print_sheets": {
+                        "type": "number"
+                      },
+                      "nm_status": {
+                        "type": "number"
+                      },
+                      "office_name": {
                         "type": "string"
                       },
-                      "status": {
+                      "qm_print_sheets": {
+                        "type": "number"
+                      },
+                      "qm_status": {
+                        "type": "number"
+                      },
+                      "receive_type": {
+                        "type": "string"
+                      },
+                      "rm_print_sheets": {
+                        "type": "number"
+                      },
+                      "rm_status": {
+                        "type": "number"
+                      },
+                      "shinsei_id": {
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "type": "string"
+                      },
+                      "update_date": {
                         "type": "string"
                       }
                     },
@@ -975,13 +1014,23 @@
             "type": "string"
           },
           {
-            "description": "The status of the label to filter by.",
+            "description": "Union ID to filter labels by.",
+            "example": "union_001",
             "in": "query",
-            "name": "label_status",
+            "name": "union_id",
+            "required": true,
             "type": "string"
           },
           {
+            "description": "The status of the label to filter by.",
+            "example": 1,
+            "in": "query",
+            "name": "label_status",
+            "type": "number"
+          },
+          {
             "description": "Start date for filtering the labels.",
+            "example": "2021-01-01",
             "format": "date",
             "in": "query",
             "name": "start_date",
@@ -989,6 +1038,7 @@
           },
           {
             "description": "End date for filtering the labels.",
+            "example": "2021-12-31",
             "format": "date",
             "in": "query",
             "name": "end_date",
@@ -996,27 +1046,24 @@
           },
           {
             "description": "The name of the office to filter by.",
+            "example": "Tokyo Office",
             "in": "query",
             "name": "office_name",
             "type": "string"
           },
           {
             "description": "Type of receive to filter the labels.",
+            "example": 1,
             "in": "query",
             "name": "receive_type",
-            "type": "string"
+            "type": "number"
           },
           {
             "description": "Page number for pagination.",
+            "example": 1,
             "in": "query",
             "name": "page",
             "type": "integer"
-          },
-          {
-            "description": "Union ID to filter labels by.",
-            "in": "query",
-            "name": "union_id",
-            "type": "string"
           }
         ],
         "responses": {
@@ -1027,13 +1074,46 @@
                 "result": {
                   "items": {
                     "properties": {
+                      "group_id": {
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "type": "string"
+                      },
                       "label_id": {
                         "type": "string"
                       },
-                      "label_name": {
+                      "nm_print_sheets": {
+                        "type": "number"
+                      },
+                      "nm_status": {
+                        "type": "number"
+                      },
+                      "office_name": {
                         "type": "string"
                       },
-                      "status": {
+                      "qm_print_sheets": {
+                        "type": "number"
+                      },
+                      "qm_status": {
+                        "type": "number"
+                      },
+                      "receive_type": {
+                        "type": "string"
+                      },
+                      "rm_print_sheets": {
+                        "type": "number"
+                      },
+                      "rm_status": {
+                        "type": "number"
+                      },
+                      "shinsei_id": {
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "type": "string"
+                      },
+                      "update_date": {
                         "type": "string"
                       }
                     },
@@ -1102,7 +1182,7 @@
           },
           {
             "description": "The type of label to filter by.",
-            "example": "type_1",
+            "example": "1",
             "in": "query",
             "name": "label_type",
             "required": true,
@@ -1110,7 +1190,7 @@
           },
           {
             "description": "Comma-separated list of print IDs.",
-            "example": "print_001,print_002",
+            "example": "1102",
             "in": "query",
             "name": "printIds",
             "required": true,
@@ -1127,6 +1207,10 @@
                     "properties": {
                       "group_name": {
                         "type": "string"
+                      },
+                      "label_num": {
+                        "example": 8,
+                        "type": "number"
                       },
                       "manager_name": {
                         "type": "string"
@@ -1207,31 +1291,35 @@
           },
           {
             "description": "Deadline to filter by.",
+            "example": 31,
             "in": "query",
             "name": "shimebi",
-            "required": false,
-            "type": "string"
+            "required": true,
+            "type": "nubmer"
           },
           {
             "description": "The start month for the summary period.",
+            "example": "2019-01",
             "in": "query",
             "name": "start_month",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
             "description": "The end month for the summary period.",
+            "example": "2019-12",
             "in": "query",
             "name": "end_month",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
             "description": "The type of summary.",
+            "example": 1,
             "in": "query",
             "name": "shukei_type",
-            "required": false,
-            "type": "string"
+            "required": true,
+            "type": "nubmer"
           },
           {
             "description": "The group ID to filter by.",
@@ -1251,54 +1339,28 @@
         "responses": {
           "200": {
             "description": "Summary report fetched successfully.",
-            "schema": {
+            "patternProperties": {
+              "^.*$": null,
               "properties": {
-                "nm_shiyoryo_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "nm_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "output_name": {
-                  "type": "string"
-                },
-                "qm_shiyoryo_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "qm_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "rm_shiyoryo_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "rm_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "shinsei_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "shonin_date": {
-                  "format": "date",
-                  "type": "string"
-                },
-                "shonin_ng_total": {
-                  "example": 0,
-                  "type": "integer"
-                },
-                "shonin_ok_total": {
-                  "example": 0,
-                  "type": "integer"
-                }
+                "example": 0,
+                "format": "date",
+                "nm_shiyoryo_total": null,
+                "nm_total": null,
+                "output_name": null,
+                "qm_shiyoryo_total": null,
+                "qm_total": null,
+                "rm_shiyoryo_total": null,
+                "rm_total": null,
+                "shinsei_total": null,
+                "shonin_date": null,
+                "shonin_ng_total": null,
+                "shonin_ok_total": null,
+                "type": "integer"
               },
               "type": "object"
-            }
+            },
+            "schema": null,
+            "type": "object"
           },
           "401": {
             "description": "Unauthorized – If the token is missing or invalid."
