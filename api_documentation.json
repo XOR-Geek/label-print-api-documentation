@@ -2247,51 +2247,6 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "delete_date": {
-                    "example": null,
-                    "type": "string"
-                  },
-                  "group_id": {
-                    "example": "1",
-                    "type": "string"
-                  },
-                  "insert_by": {
-                    "example": "1",
-                    "type": "string"
-                  },
-                  "insert_date": {
-                    "example": "Sat, 07 Sep 2024 18:00:00 GMT",
-                    "type": "string"
-                  },
-                  "union_kana": {
-                    "example": "g1",
-                    "type": "string"
-                  },
-                  "union_name": {
-                    "example": "test",
-                    "type": "string"
-                  },
-                  "update_by": {
-                    "example": null,
-                    "type": "string"
-                  },
-                  "update_date": {
-                    "example": null,
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              }
-            }
-          },
-          "description": "Union details to create.",
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "Union created successfully.",
