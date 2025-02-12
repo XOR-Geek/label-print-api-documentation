@@ -1329,34 +1329,88 @@
         "responses": {
           "200": {
             "description": "Summary report fetched successfully.",
-            "patternProperties": {
-              "^.*$": null,
+            "schema": {
               "properties": {
-                "example": 0,
-                "format": "date",
-                "nm_shiyoryo_total": null,
-                "nm_total": null,
-                "output_name": null,
-                "qm_shiyoryo_total": null,
-                "qm_total": null,
-                "rm_shiyoryo_total": null,
-                "rm_total": null,
-                "shinsei_total": null,
-                "shonin_date": null,
-                "shonin_ng_total": null,
-                "shonin_ok_total": null,
-                "type": "integer"
+                "message": {
+                  "example": "Label printed successfully.",
+                  "type": "string"
+                },
+                "nm_shiyoryo_total": {
+                  "example": 65122,
+                  "type": "integer"
+                },
+                "nm_total": {
+                  "example": 6332,
+                  "type": "integer"
+                },
+                "output_name": {
+                  "example": "日本室内装飾事業協同組合",
+                  "type": "string"
+                },
+                "qm_shiyoryo_total": {
+                  "example": 87967,
+                  "type": "integer"
+                },
+                "qm_total": {
+                  "example": 6390,
+                  "type": "integer"
+                },
+                "rm_shiyoryo_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "rm_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "shinsei_total": {
+                  "example": 123,
+                  "type": "integer"
+                },
+                "shonin_date": {
+                  "example": "2024-10",
+                  "format": "date",
+                  "type": "string"
+                },
+                "shonin_ng_total": {
+                  "example": 1,
+                  "type": "integer"
+                },
+                "shonin_ok_total": {
+                  "example": 122,
+                  "type": "integer"
+                }
               },
               "type": "object"
-            },
-            "schema": null,
-            "type": "object"
+            }
           },
           "401": {
-            "description": "Unauthorized – If the token is missing or invalid."
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
           },
           "500": {
-            "description": "Internal Server Error – Unexpected error during processing."
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
           }
         },
         "security": [
