@@ -2218,6 +2218,33 @@
             "name": "Authorization",
             "required": true,
             "type": "string"
+          },
+          {
+            "description": "Data for updating the union.",
+            "in": "body",
+            "name": "union_data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "group_id": {
+                  "example": "qgGjSFAAIvARAwxuhCuU",
+                  "type": "string"
+                },
+                "insert_by": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "union_kana": {
+                  "example": "g1",
+                  "type": "string"
+                },
+                "union_name": {
+                  "example": "test1",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
           }
         ],
         "requestBody": {
