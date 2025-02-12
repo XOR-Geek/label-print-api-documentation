@@ -763,6 +763,14 @@
                 "group_name_sub": {
                   "example": "This is a updated group.",
                   "type": "string"
+                },
+                "insert_by": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "update_by": {
+                  "example": "1",
+                  "type": "string"
                 }
               },
               "required": [
@@ -2747,6 +2755,10 @@
                 "union_name": {
                   "example": "test1",
                   "type": "string"
+                },
+                "update_by": {
+                  "example": "1",
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -2832,6 +2844,1446 @@
         "summary": "Updates an existing union entry.",
         "tags": [
           "Union"
+        ]
+      }
+    },
+    "/api/user/delete": {
+      "post": {
+        "description": "<br/>Args:<br/>    data (dict): A dictionary containing the user ID to be deleted.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The data containing the user ID to be deleted.",
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "user_id": {
+                  "description": "The ID of the user to delete.",
+                  "example": "YHBI9AIgAMjSJfcf0fJ3",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the user.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "User delete successful.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the user with the specified ID is not found.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "User YHBI9AIgAMjSJfcf0fJ3 not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Soft delete a user based on the data provided in the request body.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/edit": {
+      "get": {
+        "description": "<br/>Args:<br/>    user_id (str): The ID of the user to edit.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The ID of the user to retrieve.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched user details for editing.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "User Information",
+                  "type": "string"
+                },
+                "user_data": {
+                  "description": "The user data for editing.",
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the user with the specified ID is not found.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "User {user_id} not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch user details for editing based on the user ID.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/store": {
+      "post": {
+        "description": "<br/>Args:<br/>    data (dict): A dictionary containing user data (e.g., name, email, user type).<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The user data to create a new user.",
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "address": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "fax": {
+                  "type": "string"
+                },
+                "group_id": {
+                  "type": "string"
+                },
+                "last_login_date": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "login_id": {
+                  "type": "string"
+                },
+                "manager_name": {
+                  "type": "string"
+                },
+                "office_name": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "password_hint": {
+                  "type": "string"
+                },
+                "reminder_key": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "reminder_time": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "shinsei_user_id": {
+                  "example": "12345",
+                  "type": "string"
+                },
+                "status": {
+                  "type": "integer"
+                },
+                "tel": {
+                  "type": "string"
+                },
+                "tokuyu_flg": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "union_id": {
+                  "type": "string"
+                },
+                "user_name": {
+                  "type": "string"
+                },
+                "user_system_no": {
+                  "type": "string"
+                },
+                "user_type": {
+                  "type": "integer"
+                },
+                "zip": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User created successfully.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "User created Successfully",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create a new user with the data provided in the request body.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/update": {
+      "post": {
+        "description": "<br/>Args:<br/>    data (dict): A dictionary containing updated user data (e.g., name, email, user type).<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The updated user data.",
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "address": {
+                  "example": "oiuyhg",
+                  "type": "string"
+                },
+                "email": {
+                  "example": "user@bb.com",
+                  "type": "string"
+                },
+                "fax": {
+                  "example": "fghjk",
+                  "type": "string"
+                },
+                "group_id": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "insert_by": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "last_login_date": {
+                  "example": null,
+                  "type": "string"
+                },
+                "login_id": {
+                  "example": "okda",
+                  "type": "string"
+                },
+                "manager_name": {
+                  "example": "ok",
+                  "type": "string"
+                },
+                "office_name": {
+                  "example": "ok",
+                  "type": "string"
+                },
+                "password": {
+                  "example": "123456",
+                  "type": "string"
+                },
+                "password_hint": {
+                  "example": "ok",
+                  "type": "string"
+                },
+                "reminder_key": {
+                  "example": null,
+                  "type": "string"
+                },
+                "reminder_time": {
+                  "example": null,
+                  "type": "string"
+                },
+                "status": {
+                  "example": 1,
+                  "type": "integer"
+                },
+                "tel": {
+                  "example": "234fg",
+                  "type": "string"
+                },
+                "tokuyu_flg": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "union_id": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "update_by": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "user_id": {
+                  "description": "The ID of the user to update.",
+                  "example": "YHBI9AIgAMjSJfcf0fJ3",
+                  "type": "string"
+                },
+                "user_name": {
+                  "example": "okuser",
+                  "type": "string"
+                },
+                "user_system_no": {
+                  "example": "ertyuio4567",
+                  "type": "string"
+                },
+                "user_type": {
+                  "example": 4,
+                  "type": "integer"
+                },
+                "zip": {
+                  "example": "4--11",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated user data.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "User updated.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the user with the specified ID is not found.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "User YHBI9AIgAMjSJfcf0fJ3 not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Update user data with the information provided in the request body.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/user_csv_list": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The login ID to filter users by.",
+            "in": "query",
+            "name": "login_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user name to filter users by.",
+            "in": "query",
+            "name": "user_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The email to filter users by.",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user type to filter users by.",
+            "in": "query",
+            "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The tokuyu_flg flag to filter users by.",
+            "in": "query",
+            "name": "tokuyu_flg",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user system number to filter users by.",
+            "in": "query",
+            "name": "user_system_no",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The union ID to filter users by.",
+            "in": "query",
+            "name": "union_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The group ID to filter users by.",
+            "in": "query",
+            "name": "group_id",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched the user list.",
+            "schema": {
+              "properties": {
+                "users": {
+                  "items": {
+                    "properties": {
+                      "address": {
+                        "description": "User address",
+                        "example": "oiuyhg",
+                        "type": "string"
+                      },
+                      "fax": {
+                        "description": "User fax number",
+                        "example": "fghjk",
+                        "type": "string"
+                      },
+                      "id": {
+                        "description": "User ID",
+                        "example": "YHBI9AIgAMjSJfcf0fJ3",
+                        "type": "string"
+                      },
+                      "manager_name": {
+                        "description": "Manager name",
+                        "example": "ok manager",
+                        "type": "string"
+                      },
+                      "office_name": {
+                        "description": "Office name",
+                        "example": "ok",
+                        "type": "string"
+                      },
+                      "status": {
+                        "description": "User status (1 for active, 0 for inactive)",
+                        "example": 1,
+                        "type": "integer"
+                      },
+                      "tel": {
+                        "description": "User phone number",
+                        "example": "234fg",
+                        "type": "string"
+                      },
+                      "user_name": {
+                        "description": "User name",
+                        "example": "okuser",
+                        "type": "string"
+                      },
+                      "user_system_no": {
+                        "description": "User system number",
+                        "example": "ertyuio4567",
+                        "type": "string"
+                      },
+                      "zip": {
+                        "description": "User zip code",
+                        "example": "4--11",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a list of users in CSV format without any group or union filters.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/user_csv_list_group": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The login ID to filter users by.",
+            "in": "query",
+            "name": "login_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user name to filter users by.",
+            "in": "query",
+            "name": "user_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The email to filter users by.",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user type to filter users by (default is 2).",
+            "in": "query",
+            "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The tokuyu_flg flag to filter users by.",
+            "in": "query",
+            "name": "tokuyu_flg",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user system number to filter users by.",
+            "in": "query",
+            "name": "user_system_no",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The group ID to filter users by.",
+            "in": "query",
+            "name": "group_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The union ID to filter users by.",
+            "in": "query",
+            "name": "union_id",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched the user list.",
+            "schema": {
+              "properties": {
+                "users": {
+                  "items": {
+                    "properties": {
+                      "address": {
+                        "description": "User address",
+                        "example": "oiuyhg",
+                        "type": "string"
+                      },
+                      "fax": {
+                        "description": "User fax number",
+                        "example": "fghjk",
+                        "type": "string"
+                      },
+                      "id": {
+                        "description": "User ID",
+                        "example": "YHBI9AIgAMjSJfcf0fJ3",
+                        "type": "string"
+                      },
+                      "manager_name": {
+                        "description": "Manager name",
+                        "example": "ok manager",
+                        "type": "string"
+                      },
+                      "office_name": {
+                        "description": "Office name",
+                        "example": "ok",
+                        "type": "string"
+                      },
+                      "status": {
+                        "description": "User status (1 for active, 0 for inactive)",
+                        "example": 1,
+                        "type": "integer"
+                      },
+                      "tel": {
+                        "description": "User phone number",
+                        "example": "234fg",
+                        "type": "string"
+                      },
+                      "user_name": {
+                        "description": "User name",
+                        "example": "okuser",
+                        "type": "string"
+                      },
+                      "user_system_no": {
+                        "description": "User system number",
+                        "example": "ertyuio4567",
+                        "type": "string"
+                      },
+                      "zip": {
+                        "description": "User zip code",
+                        "example": "4--11",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a list of users in CSV format filtered by group and union IDs.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/user_csv_list_union": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The login ID to filter users by.",
+            "in": "query",
+            "name": "login_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user name to filter users by.",
+            "in": "query",
+            "name": "user_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The email to filter users by.",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user type to filter users by (default is 3).",
+            "in": "query",
+            "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The tokuyu_flg flag to filter users by.",
+            "in": "query",
+            "name": "tokuyu_flg",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user system number to filter users by.",
+            "in": "query",
+            "name": "user_system_no",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The group ID to filter users by.",
+            "in": "query",
+            "name": "group_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The union ID to filter users by.",
+            "in": "query",
+            "name": "union_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched the user list.",
+            "schema": {
+              "properties": {
+                "users": {
+                  "items": {
+                    "properties": {
+                      "address": {
+                        "description": "User address",
+                        "example": "oiuyhg",
+                        "type": "string"
+                      },
+                      "fax": {
+                        "description": "User fax number",
+                        "example": "fghjk",
+                        "type": "string"
+                      },
+                      "id": {
+                        "description": "User ID",
+                        "example": "YHBI9AIgAMjSJfcf0fJ3",
+                        "type": "string"
+                      },
+                      "manager_name": {
+                        "description": "Manager name",
+                        "example": "ok manager",
+                        "type": "string"
+                      },
+                      "office_name": {
+                        "description": "Office name",
+                        "example": "ok",
+                        "type": "string"
+                      },
+                      "status": {
+                        "description": "User status (1 for active, 0 for inactive)",
+                        "example": 1,
+                        "type": "integer"
+                      },
+                      "tel": {
+                        "description": "User phone number",
+                        "example": "234fg",
+                        "type": "string"
+                      },
+                      "user_name": {
+                        "description": "User name",
+                        "example": "okuser",
+                        "type": "string"
+                      },
+                      "user_system_no": {
+                        "description": "User system number",
+                        "example": "ertyuio4567",
+                        "type": "string"
+                      },
+                      "zip": {
+                        "description": "User zip code",
+                        "example": "4--11",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a list of users in CSV format filtered by union ID.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/user_list": {
+      "get": {
+        "description": "<br/>Args:<br/>    login_id (str): The login ID of the user (optional).<br/>    user_name (str): The name of the user (optional).<br/>    email (str): The email address of the user (optional).<br/>    user_type (str): The type of user (optional).<br/>    tokuyu_flg (str): The flag for tokuyu (optional).<br/>    user_system_no (str): The system number of the user (optional).<br/>    union_id (str): The ID of the union to which the user belongs (optional).<br/>    group_id (str): The ID of the group to which the user belongs (optional).<br/>    page (int): The page number for pagination (optional).<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the login ID of the user.",
+            "example": "12345",
+            "in": "query",
+            "name": "login_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the name of the user.",
+            "example": "John Doe",
+            "in": "query",
+            "name": "user_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the user's email address.",
+            "example": "user@mail.com",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the user's type(1,2,3,4).",
+            "example": "1",
+            "in": "query",
+            "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Pagination - page number.",
+            "example": 1,
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users fetched successfully.",
+            "schema": {
+              "properties": {
+                "total_count": {
+                  "type": "integer"
+                },
+                "users": {
+                  "items": {
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "login_id": {
+                        "type": "string"
+                      },
+                      "user_name": {
+                        "type": "string"
+                      },
+                      "user_type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a list of users based on query parameters such as login_id, user_name, email, etc.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/user_list_group": {
+      "get": {
+        "description": "<br/>Args:<br/>    group_id (str): The ID of the group to which the user belongs.<br/>    Other arguments are similar to the ones in `get_list`.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter users by the group ID they belong to.",
+            "example": "12345",
+            "in": "query",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the login ID of the user (optional).",
+            "example": "12345",
+            "in": "query",
+            "name": "login_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the name of the user (optional).",
+            "example": "John Doe",
+            "in": "query",
+            "name": "user_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the user's email address (optional).",
+            "example": "user@mail.com",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the user's type (optional)(1,2,3,4).",
+            "example": "1",
+            "in": "query",
+            "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Pagination - page number (optional).",
+            "example": 1,
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users fetched successfully.",
+            "schema": {
+              "properties": {
+                "total_count": {
+                  "type": "integer"
+                },
+                "users": {
+                  "items": {
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "login_id": {
+                        "type": "string"
+                      },
+                      "user_name": {
+                        "type": "string"
+                      },
+                      "user_type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a list of users filtered by group ID.",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/user_list_union": {
+      "get": {
+        "description": "<br/>Args:<br/>    union_id (str): The ID of the union to which the user belongs.<br/>    Other arguments are similar to the ones in `get_list`.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter users by the union ID they belong to.",
+            "example": "12345",
+            "in": "query",
+            "name": "union_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the login ID of the user (optional).",
+            "example": "12345",
+            "in": "query",
+            "name": "login_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the name of the user (optional).",
+            "example": "John Doe",
+            "in": "query",
+            "name": "user_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the user's email address (optional).",
+            "example": "user@mail.com",
+            "in": "query",
+            "name": "email",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the user's type (optional)(1,2,3,4).",
+            "example": "1",
+            "in": "query",
+            "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Pagination - page number (optional).",
+            "example": 1,
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of users fetched successfully.",
+            "schema": {
+              "properties": {
+                "total_count": {
+                  "type": "integer"
+                },
+                "users": {
+                  "items": {
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "login_id": {
+                        "type": "string"
+                      },
+                      "user_name": {
+                        "type": "string"
+                      },
+                      "user_type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details message",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a list of users filtered by union ID.",
+        "tags": [
+          "User"
         ]
       }
     }
