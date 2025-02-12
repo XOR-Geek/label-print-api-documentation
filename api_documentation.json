@@ -541,36 +541,31 @@
             "type": "string"
           },
           {
-            "description": "Filter groups by exact name.",
-            "example": "Group Name",
+            "description": "Filter groups by exact name(e.g., \"Group Name\").",
             "in": "query",
             "name": "group_name",
             "type": "string"
           },
           {
-            "description": "Filter groups by a substring in their name.",
-            "example": "Group",
+            "description": "Filter groups by a substring in their name(e.g., \"Group \").",
             "in": "query",
             "name": "group_name_sub",
             "type": "string"
           },
           {
-            "description": "The page number for pagination.",
-            "example": 1,
+            "description": "The page number for pagination(e.g., 1).",
             "in": "query",
             "name": "page",
             "type": "integer"
           },
           {
-            "description": "Field to sort the results by.",
-            "example": "group_name",
+            "description": "Field to sort the results by(e.g., \"group_name \").",
             "in": "query",
             "name": "sort_field",
             "type": "string"
           },
           {
             "description": "The order of sorting (asc/desc).",
-            "example": "asc",
             "in": "query",
             "name": "sort_order",
             "type": "string"
@@ -869,45 +864,39 @@
             "type": "string"
           },
           {
-            "description": "The status of the label to filter by.",
-            "example": 1,
+            "description": "The status of the label to filter by(e.g., 1).",
             "in": "query",
             "name": "label_status",
             "type": "number"
           },
           {
-            "description": "Start date for filtering the labels.",
-            "example": "2021-01-01",
+            "description": "Start date for filtering the labels(e.g., \"2021-01-01\").",
             "format": "date",
             "in": "query",
             "name": "start_date",
             "type": "string"
           },
           {
-            "description": "End date for filtering the labels.",
-            "example": "2021-12-31",
+            "description": "End date for filtering the labels(e.g., \"2021-01-01\").",
             "format": "date",
             "in": "query",
             "name": "end_date",
             "type": "string"
           },
           {
-            "description": "The name of the office to filter by.",
-            "example": "Tokyo Office",
+            "description": "The name of the office to filter by(e.g., \"Tokyo Office\").",
             "in": "query",
             "name": "office_name",
             "type": "string"
           },
           {
-            "description": "Type of receive to filter the labels.",
-            "example": 1,
+            "description": "Type of receive to filter the labels(e.g., 1).",
             "in": "query",
             "name": "receive_type",
             "type": "number"
           },
           {
-            "description": "Page number for pagination.",
-            "example": 1,
+            "description": "Page number for pagination(e.g., 1).",
             "in": "query",
             "name": "page",
             "type": "integer"
@@ -1028,53 +1017,46 @@
             "type": "string"
           },
           {
-            "description": "Union ID to filter labels by.",
-            "example": "union_001",
+            "description": "Union ID to filter labels by(e.g., \"union_001\").",
             "in": "query",
             "name": "union_id",
             "required": true,
             "type": "string"
           },
           {
-            "description": "The status of the label to filter by.",
-            "example": 1,
+            "description": "The status of the label to filter by(e.g., 1).",
             "in": "query",
             "name": "label_status",
             "type": "number"
           },
           {
-            "description": "Start date for filtering the labels.",
-            "example": "2021-01-01",
+            "description": "Start date for filtering the labels(e.g., \"2021-01-01\").",
             "format": "date",
             "in": "query",
             "name": "start_date",
             "type": "string"
           },
           {
-            "description": "End date for filtering the labels.",
-            "example": "2021-12-31",
+            "description": "End date for filtering the labels(e.g., \"2021-12-31\").",
             "format": "date",
             "in": "query",
             "name": "end_date",
             "type": "string"
           },
           {
-            "description": "The name of the office to filter by.",
-            "example": "Tokyo Office",
+            "description": "The name of the office to filter by(e.g., \"Tokyo Office\").",
             "in": "query",
             "name": "office_name",
             "type": "string"
           },
           {
-            "description": "Type of receive to filter the labels.",
-            "example": 1,
+            "description": "Type of receive to filter the labels(e.g., 1).",
             "in": "query",
             "name": "receive_type",
             "type": "number"
           },
           {
-            "description": "Page number for pagination.",
-            "example": 1,
+            "description": "Page number for pagination(e.g., 1).",
             "in": "query",
             "name": "page",
             "type": "integer"
@@ -1195,16 +1177,14 @@
             "type": "string"
           },
           {
-            "description": "The type of label to filter by.",
-            "example": "1",
+            "description": "The type of label to filter by(e.g., \"1\").",
             "in": "query",
             "name": "label_type",
             "required": true,
             "type": "string"
           },
           {
-            "description": "Comma-separated list of print IDs.",
-            "example": "1102",
+            "description": "Comma-separated list of print IDs(e.g., \"1102\").",
             "in": "query",
             "name": "printIds",
             "required": true,
@@ -1304,32 +1284,28 @@
             "type": "string"
           },
           {
-            "description": "Deadline to filter by.",
-            "example": 31,
+            "description": "Deadline to filter by(e.g., 31).",
             "in": "query",
             "name": "shimebi",
             "required": true,
             "type": "nubmer"
           },
           {
-            "description": "The start month for the summary period.",
-            "example": "2019-01",
+            "description": "The start month for the summary period(e.g., \"2019-12\").",
             "in": "query",
             "name": "start_month",
             "required": true,
             "type": "string"
           },
           {
-            "description": "The end month for the summary period.",
-            "example": "2019-12",
+            "description": "The end month for the summary period(e.g., \"2019-12\").",
             "in": "query",
             "name": "end_month",
             "required": true,
             "type": "string"
           },
           {
-            "description": "The type of summary.",
-            "example": 1,
+            "description": "The type of summary(e.g.,1).",
             "in": "query",
             "name": "shukei_type",
             "required": true,
@@ -2125,8 +2101,7 @@
             "type": "string"
           },
           {
-            "description": "ID of the union to fetch.",
-            "example": "123",
+            "description": "ID of the union to fetch(e.g., \"123\").",
             "in": "query",
             "name": "union_id",
             "required": true,
@@ -2379,8 +2354,7 @@
             "type": "string"
           },
           {
-            "description": "The ID of the group to filter unions by.",
-            "example": "1",
+            "description": "The ID of the group to filter unions by(e.g., \"1\").",
             "in": "query",
             "name": "group_id",
             "required": true,
@@ -2476,8 +2450,7 @@
             "type": "string"
           },
           {
-            "description": "Filter by group ID.",
-            "example": "1",
+            "description": "Filter by group ID(e.g., \"1\").",
             "in": "query",
             "name": "group_id",
             "type": "string"
@@ -2490,22 +2463,19 @@
             "type": "string"
           },
           {
-            "description": "Page number for pagination.",
-            "example": "1",
+            "description": "Page number for pagination(e.g., \"1\").",
             "in": "query",
             "name": "page",
             "type": "string"
           },
           {
-            "description": "Field to sort by.",
-            "example": "union_name",
+            "description": "Field to sort by(e.g., \"union_name\").",
             "in": "query",
             "name": "sort_field",
             "type": "string"
           },
           {
-            "description": "Order to sort (asc or desc).",
-            "example": "asc",
+            "description": "Order to sort (asc or desc)",
             "in": "query",
             "name": "sort_order",
             "type": "string"
@@ -2602,8 +2572,7 @@
             "type": "string"
           },
           {
-            "description": "Filter by group ID.",
-            "example": "1",
+            "description": "Filter by group ID(e.g., \"1\").",
             "in": "query",
             "name": "group_id",
             "required": true,
@@ -2617,22 +2586,19 @@
             "type": "string"
           },
           {
-            "description": "Page number for pagination.",
-            "example": "1",
+            "description": "Page number for pagination(e.g., \"1\").",
             "in": "query",
             "name": "page",
             "type": "string"
           },
           {
-            "description": "Field to sort by.",
-            "example": "union_name",
+            "description": "Field to sort by(e.g., \"union_name\").",
             "in": "query",
             "name": "sort_field",
             "type": "string"
           },
           {
             "description": "Order to sort (asc or desc).",
-            "example": "asc",
             "in": "query",
             "name": "sort_order",
             "type": "string"
@@ -3901,24 +3867,21 @@
             "type": "string"
           },
           {
-            "description": "Filter by the login ID of the user.",
-            "example": "12345",
+            "description": "Filter by the login ID of the user(e.g., \"12345\").",
             "in": "query",
             "name": "login_id",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Filter by the name of the user.",
-            "example": "John Doe",
+            "description": "Filter by the name of the user(e.g., \"John Doe\").",
             "in": "query",
             "name": "user_name",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Filter by the user's email address.",
-            "example": "user@mail.com",
+            "description": "Filter by the user's email address(e.g., \"user@mail.com\").",
             "in": "query",
             "name": "email",
             "required": false,
@@ -3926,15 +3889,13 @@
           },
           {
             "description": "Filter by the user's type(1,2,3,4).",
-            "example": "1",
             "in": "query",
             "name": "user_type",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Pagination - page number.",
-            "example": 1,
+            "description": "Pagination - page number(e.g.,1\").",
             "in": "query",
             "name": "page",
             "required": false,
@@ -4028,32 +3989,28 @@
             "type": "string"
           },
           {
-            "description": "Filter users by the group ID they belong to.",
-            "example": "12345",
+            "description": "Filter users by the group ID they belong to(e.g., \"12345\").",
             "in": "query",
             "name": "group_id",
             "required": true,
             "type": "string"
           },
           {
-            "description": "Filter by the login ID of the user (optional).",
-            "example": "12345",
+            "description": "Filter by the login ID of the user (optional)(e.g., \"12345\").",
             "in": "query",
             "name": "login_id",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Filter by the name of the user (optional).",
-            "example": "John Doe",
+            "description": "Filter by the name of the user (optional)(e.g., \"John Doe\").",
             "in": "query",
             "name": "user_name",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Filter by the user's email address (optional).",
-            "example": "user@mail.com",
+            "description": "Filter by the user's email address (optional)(e.g., \"user@mail.com\").",
             "in": "query",
             "name": "email",
             "required": false,
@@ -4061,7 +4018,6 @@
           },
           {
             "description": "Filter by the user's type (optional)(1,2,3,4).",
-            "example": "1",
             "in": "query",
             "name": "user_type",
             "required": false,
@@ -4069,7 +4025,6 @@
           },
           {
             "description": "Pagination - page number (optional).",
-            "example": 1,
             "in": "query",
             "name": "page",
             "required": false,
@@ -4163,32 +4118,28 @@
             "type": "string"
           },
           {
-            "description": "Filter users by the union ID they belong to.",
-            "example": "12345",
+            "description": "Filter users by the union ID they belong to(e.g., \"12345\").",
             "in": "query",
             "name": "union_id",
             "required": true,
             "type": "string"
           },
           {
-            "description": "Filter by the login ID of the user (optional).",
-            "example": "12345",
+            "description": "Filter by the login ID of the user (optional)(e.g., \"12345\").",
             "in": "query",
             "name": "login_id",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Filter by the name of the user (optional).",
-            "example": "John Doe",
+            "description": "Filter by the name of the user (optional)(e.g., \"John Doe\").",
             "in": "query",
             "name": "user_name",
             "required": false,
             "type": "string"
           },
           {
-            "description": "Filter by the user's email address (optional).",
-            "example": "user@mail.com",
+            "description": "Filter by the user's email address (optional)(e.g., \"user@mail.com\").",
             "in": "query",
             "name": "email",
             "required": false,
@@ -4196,7 +4147,6 @@
           },
           {
             "description": "Filter by the user's type (optional)(1,2,3,4).",
-            "example": "1",
             "in": "query",
             "name": "user_type",
             "required": false,
@@ -4204,7 +4154,6 @@
           },
           {
             "description": "Pagination - page number (optional).",
-            "example": 1,
             "in": "query",
             "name": "page",
             "required": false,
