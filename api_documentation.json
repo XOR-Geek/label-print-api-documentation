@@ -22,6 +22,7 @@
           },
           {
             "description": "The ID of the user for whom adjustment data is requested.",
+            "example": "lbl_001",
             "in": "query",
             "name": "user_id",
             "required": true,
@@ -103,22 +104,23 @@
             "required": true,
             "schema": {
               "properties": {
-                "adjustment_value": {
+                "line_x": {
                   "example": 5.75,
                   "type": "number"
                 },
-                "description": {
-                  "example": "Adjustment for label printing error",
-                  "type": "string"
+                "line_y": {
+                  "example": 5.75,
+                  "type": "number"
                 },
-                "label_id": {
+                "user_id": {
                   "example": "lbl_001",
                   "type": "string"
                 }
               },
               "required": [
-                "label_id",
-                "adjustment_value"
+                "user_id",
+                "line_x",
+                "line_y"
               ],
               "type": "object"
             }
@@ -541,30 +543,35 @@
           },
           {
             "description": "Filter groups by exact name.",
+            "example": "Group Name",
             "in": "query",
             "name": "group_name",
             "type": "string"
           },
           {
             "description": "Filter groups by a substring in their name.",
+            "example": "Group",
             "in": "query",
             "name": "group_name_sub",
             "type": "string"
           },
           {
             "description": "The page number for pagination.",
+            "example": 1,
             "in": "query",
             "name": "page",
             "type": "integer"
           },
           {
             "description": "Field to sort the results by.",
+            "example": "group_name",
             "in": "query",
             "name": "sort_field",
             "type": "string"
           },
           {
             "description": "The order of sorting (asc/desc).",
+            "example": "asc",
             "in": "query",
             "name": "sort_order",
             "type": "string"
@@ -1996,6 +2003,853 @@
         "summary": "Endpoint to initiate a password reset process by sending a reset link to the user's email.",
         "tags": [
           "Authentication"
+        ]
+      }
+    },
+    "/api/union/delete": {
+      "post": {
+        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/>Query Parameters:<br/>    - union_id (str): ID of the union to delete.    <br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Data for deleting the union (union_id).",
+            "in": "body",
+            "name": "union_data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "union_id": {
+                  "example": "DuFKeFBBu7QeWpHgfWVv",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully marked union as deleted.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Union Delete successful",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the union with the provided `union_id` does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Union {union_id} not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while deleting the union.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Deletes a specified union entry.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/edit": {
+      "get": {
+        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Query Parameters:<br/>    - union_id (str): ID of the union to fetch.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "ID of the union to fetch.",
+            "example": "123",
+            "in": "query",
+            "name": "union_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved union details for editing.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Union Information",
+                  "type": "string"
+                },
+                "union_data": {
+                  "example": {
+                    "group_id": "1",
+                    "union_id": "123",
+                    "union_kana": "test_kana",
+                    "union_name": "test_union"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the union with the provided `union_id` does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Union {union_id} not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while fetching the union details.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Retrieves details of a union for editing.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/store": {
+      "post": {
+        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Request Body:<br/>    - JSON data with union details.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "delete_date": {
+                    "example": null,
+                    "type": "string"
+                  },
+                  "group_id": {
+                    "example": "1",
+                    "type": "string"
+                  },
+                  "insert_by": {
+                    "example": "1",
+                    "type": "string"
+                  },
+                  "insert_date": {
+                    "example": "Sat, 07 Sep 2024 18:00:00 GMT",
+                    "type": "string"
+                  },
+                  "union_kana": {
+                    "example": "g1",
+                    "type": "string"
+                  },
+                  "union_name": {
+                    "example": "test",
+                    "type": "string"
+                  },
+                  "update_by": {
+                    "example": null,
+                    "type": "string"
+                  },
+                  "update_date": {
+                    "example": null,
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "description": "Union details to create.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Union created successfully.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Union created Successfully",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while creating the union.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Creates a new union entry.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/union_all_list": {
+      "get": {
+        "description": "<br/>This endpoint retrieves all union records from the database where the union is not marked as deleted.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of unions fetched successfully.",
+            "schema": {
+              "properties": {
+                "total_count": {
+                  "type": "integer"
+                },
+                "unions": {
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "union_name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid."
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch all unions that have not been deleted.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/union_group_wise_list": {
+      "get": {
+        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Query Parameters:<br/>    - group_id (str): Filter unions by group ID.<br/><br/>      <br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The ID of the group to filter unions by.",
+            "example": "1",
+            "in": "query",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched unions by group ID.",
+            "schema": {
+              "properties": {
+                "unions": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "1",
+                        "type": "string"
+                      },
+                      "id": {
+                        "example": "DuFKeFBBu7QeWpHgfWVv",
+                        "type": "string"
+                      },
+                      "union_kana": {
+                        "example": "g1",
+                        "type": "string"
+                      },
+                      "union_name": {
+                        "example": "Test Union",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while fetching union list.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a list of unions filtered by group ID.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/union_list": {
+      "get": {
+        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Query Parameters:<br/>    - group_id (str): Filter unions by group ID.<br/>    - union_name (str): Filter unions by name.<br/>    - page (str): Page number for pagination.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by group ID.",
+            "example": "1",
+            "in": "query",
+            "name": "group_id",
+            "type": "string"
+          },
+          {
+            "description": "Filter by union name.",
+            "expample": "Union Name",
+            "in": "query",
+            "name": "union_name",
+            "type": "string"
+          },
+          {
+            "description": "Page number for pagination.",
+            "example": "1",
+            "in": "query",
+            "name": "page",
+            "type": "string"
+          },
+          {
+            "description": "Field to sort by.",
+            "example": "union_name",
+            "in": "query",
+            "name": "sort_field",
+            "type": "string"
+          },
+          {
+            "description": "Order to sort (asc or desc).",
+            "example": "asc",
+            "in": "query",
+            "name": "sort_order",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated union list fetched successfully.",
+            "schema": {
+              "properties": {
+                "total_count": {
+                  "type": "integer"
+                },
+                "unions": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "type": "string"
+                      },
+                      "group_name": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "union_kana": {
+                        "type": "string"
+                      },
+                      "union_name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while fetching data.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a paginated list of unions with optional filters.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/union_list_group": {
+      "get": {
+        "description": "<br/>Parameters:<br/>    group_id (str): ID of the group to filter unions.<br/>    union_name (str): Name of the union to filter unions.<br/>    page (str): Page number for pagination.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by group ID.",
+            "example": "1",
+            "in": "query",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by union name.",
+            "expample": "Union Name",
+            "in": "query",
+            "name": "union_name",
+            "type": "string"
+          },
+          {
+            "description": "Page number for pagination.",
+            "example": "1",
+            "in": "query",
+            "name": "page",
+            "type": "string"
+          },
+          {
+            "description": "Field to sort by.",
+            "example": "union_name",
+            "in": "query",
+            "name": "sort_field",
+            "type": "string"
+          },
+          {
+            "description": "Order to sort (asc or desc).",
+            "example": "asc",
+            "in": "query",
+            "name": "sort_order",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated union list fetched successfully.",
+            "schema": {
+              "properties": {
+                "total_count": {
+                  "type": "integer"
+                },
+                "unions": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "type": "string"
+                      },
+                      "group_name": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "union_kana": {
+                        "type": "string"
+                      },
+                      "union_name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while fetching data.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetch a paginated list of unions within a specific group.",
+        "tags": [
+          "Union"
+        ]
+      }
+    },
+    "/api/union/update": {
+      "post": {
+        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Request Body:<br/>    - JSON data with updated union details.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Data for updating the union.",
+            "in": "body",
+            "name": "union_data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "group_id": {
+                  "example": "qgGjSFAAIvARAwxuhCuU",
+                  "type": "string"
+                },
+                "insert_by": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "union_id": {
+                  "example": "DuFKeFBBu7QeWpHgfWVv",
+                  "type": "string"
+                },
+                "union_kana": {
+                  "example": "g1",
+                  "type": "string"
+                },
+                "union_name": {
+                  "example": "test1",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated the union.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Union {union_id} updated.",
+                  "type": "string"
+                },
+                "updated_data": {
+                  "example": {
+                    "group_id": "1",
+                    "union_id": "123",
+                    "union_kana": "updated_kana",
+                    "union_name": "updated_union"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Authentication failed or token is missing.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – If the union with the provided `union_id` does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Union {union_id} not found.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Unexpected error occurred while updating the union details.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Updates an existing union entry.",
+        "tags": [
+          "Union"
         ]
       }
     }
