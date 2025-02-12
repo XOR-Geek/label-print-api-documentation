@@ -2220,9 +2220,9 @@
             "type": "string"
           },
           {
-            "description": "Data for updating the union.",
+            "description": "The JSON payload containing the adjustment data.",
             "in": "body",
-            "name": "union_data",
+            "name": "body",
             "required": true,
             "schema": {
               "properties": {
@@ -2767,9 +2767,9 @@
             "type": "string"
           },
           {
-            "description": "Data for updating the union.",
+            "description": "The JSON payload containing the adjustment data.",
             "in": "body",
-            "name": "union_data",
+            "name": "body",
             "required": true,
             "schema": {
               "properties": {
