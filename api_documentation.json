@@ -21,7 +21,7 @@
             "type": "string"
           },
           {
-            "description": "The ID of the user for whom adjustment data is requested.",
+            "description": "The ID of the user for whom adjustment data is requested(e.g., \"lbl_001\").",
             "in": "query",
             "name": "user_id",
             "required": true,
