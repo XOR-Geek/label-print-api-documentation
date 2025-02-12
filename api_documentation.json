@@ -33,21 +33,32 @@
         ],
         "responses": {
           "200": {
-            "description": "Adjustment data retrieved successfully.",
-            "schema": {
-              "properties": {
-                "data": {
-                  "example": {
-                    "description": "Adjustment for label printing ",
-                    "id": "",
-                    "line_x": 5.75,
-                    "line_y": 5.75
+            "content": {
+              "application/json": {
+                "examples": {
+                  "application/json": {
+                    "value": {
+                      "data": {
+                        "description": "Adjustment for label printing",
+                        "id": "123",
+                        "line_x": 5.75,
+                        "line_y": 5.75
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "description": "Adjustment label data",
+                      "type": "object"
+                    }
                   },
                   "type": "object"
                 }
-              },
-              "type": "object"
-            }
+              }
+            },
+            "description": "Adjustment data retrieved successfully."
           },
           "401": {
             "description": "Unauthorized – Missing or invalid authorization token.",
