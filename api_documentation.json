@@ -745,16 +745,16 @@
             "required": true,
             "schema": {
               "properties": {
-                "description": {
-                  "example": "This is a updated group.",
-                  "type": "string"
-                },
                 "group_id": {
                   "example": "001",
                   "type": "string"
                 },
                 "group_name": {
                   "example": "A Group",
+                  "type": "string"
+                },
+                "group_name_sub": {
+                  "example": "This is a updated group.",
                   "type": "string"
                 }
               },
@@ -777,9 +777,9 @@
                 "updated_data": {
                   "description": "The updated group data.",
                   "example": {
-                    "description": "Updated description for the group.",
                     "group_id": "12345",
-                    "group_name": "Updated Group"
+                    "group_name": "Updated Group",
+                    "group_name_sub": "Updated description for the group."
                   },
                   "type": "object"
                 }
@@ -840,6 +840,572 @@
         "summary": "Update an existing group's information.",
         "tags": [
           "Group"
+        ]
+      }
+    },
+    "/api/label/label_list": {
+      "get": {
+        "description": "<br/>The route requires an authorization token and fetches label data based on parameters such as:<br/>- label status<br/>- start and end date<br/>- office name<br/>- receive type<br/>- pagination (page number)<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The status of the label to filter by.",
+            "in": "query",
+            "name": "label_status",
+            "type": "string"
+          },
+          {
+            "description": "Start date for filtering the labels.",
+            "format": "date",
+            "in": "query",
+            "name": "start_date",
+            "type": "string"
+          },
+          {
+            "description": "End date for filtering the labels.",
+            "format": "date",
+            "in": "query",
+            "name": "end_date",
+            "type": "string"
+          },
+          {
+            "description": "The name of the office to filter by.",
+            "in": "query",
+            "name": "office_name",
+            "type": "string"
+          },
+          {
+            "description": "Type of receive to filter the labels.",
+            "in": "query",
+            "name": "receive_type",
+            "type": "string"
+          },
+          {
+            "description": "Page number for pagination.",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of labels with pagination info.",
+            "schema": {
+              "properties": {
+                "result": {
+                  "items": {
+                    "properties": {
+                      "label_id": {
+                        "type": "string"
+                      },
+                      "label_name": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a list of labels based on the provided filter parameters.",
+        "tags": [
+          "Label"
+        ]
+      }
+    },
+    "/api/label/label_list_union": {
+      "get": {
+        "description": "<br/>Similar to the `/api/label/label_list` route but includes the `union_id` filter.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The status of the label to filter by.",
+            "in": "query",
+            "name": "label_status",
+            "type": "string"
+          },
+          {
+            "description": "Start date for filtering the labels.",
+            "format": "date",
+            "in": "query",
+            "name": "start_date",
+            "type": "string"
+          },
+          {
+            "description": "End date for filtering the labels.",
+            "format": "date",
+            "in": "query",
+            "name": "end_date",
+            "type": "string"
+          },
+          {
+            "description": "The name of the office to filter by.",
+            "in": "query",
+            "name": "office_name",
+            "type": "string"
+          },
+          {
+            "description": "Type of receive to filter the labels.",
+            "in": "query",
+            "name": "receive_type",
+            "type": "string"
+          },
+          {
+            "description": "Page number for pagination.",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "Union ID to filter labels by.",
+            "in": "query",
+            "name": "union_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of labels with pagination info.",
+            "schema": {
+              "properties": {
+                "result": {
+                  "items": {
+                    "properties": {
+                      "label_id": {
+                        "type": "string"
+                      },
+                      "label_name": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a list of labels for a specific union, based on the provided filter parameters.",
+        "tags": [
+          "Label"
+        ]
+      }
+    },
+    "/api/label/print_list": {
+      "get": {
+        "description": "<br/>This route fetches label printing details based on the provided `label_type` and `printIds` parameters.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The type of label to filter by.",
+            "example": "type_1",
+            "in": "query",
+            "name": "label_type",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Comma-separated list of print IDs.",
+            "example": "print_001,print_002",
+            "in": "query",
+            "name": "printIds",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Label print details fetched successfully.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "items": {
+                    "properties": {
+                      "group_name": {
+                        "type": "string"
+                      },
+                      "manager_name": {
+                        "type": "string"
+                      },
+                      "nintei_no": {
+                        "example": "nintei_001",
+                        "type": "string"
+                      },
+                      "user_system_no": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a list of label print details for the specified label type and print IDs.",
+        "tags": [
+          "Label"
+        ]
+      }
+    },
+    "/api/label/summary_list": {
+      "get": {
+        "description": "<br/>The route returns a summary report based on the following parameters:<br/>- keyword<br/>- shimebi (deadline)<br/>- start and end months<br/>- shukei_type (type of summary)<br/>- group ID<br/>- union ID<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The keyword to filter the summary by.",
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Deadline to filter by.",
+            "in": "query",
+            "name": "shimebi",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The start month for the summary period.",
+            "in": "query",
+            "name": "start_month",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The end month for the summary period.",
+            "in": "query",
+            "name": "end_month",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The type of summary.",
+            "in": "query",
+            "name": "shukei_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The group ID to filter by.",
+            "in": "query",
+            "name": "group_id",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The union ID to filter by.",
+            "in": "query",
+            "name": "union_id",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Summary report fetched successfully.",
+            "schema": {
+              "properties": {
+                "nm_shiyoryo_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "nm_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "output_name": {
+                  "type": "string"
+                },
+                "qm_shiyoryo_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "qm_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "rm_shiyoryo_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "rm_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "shinsei_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "shonin_date": {
+                  "format": "date",
+                  "type": "string"
+                },
+                "shonin_ng_total": {
+                  "example": 0,
+                  "type": "integer"
+                },
+                "shonin_ok_total": {
+                  "example": 0,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid."
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a summary of labels based on various filters such as keyword, dates, and group/union ID.",
+        "tags": [
+          "Label"
+        ]
+      }
+    },
+    "/api/label/update_print": {
+      "post": {
+        "description": "<br/>This route accepts a POST request with JSON data for updating label print information.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authorization.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the adjustment data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "field_name": {
+                  "example": "nm",
+                  "type": "string"
+                },
+                "label_id": {
+                  "example": "lbl_001",
+                  "type": "string"
+                },
+                "user_id": {
+                  "example": "1",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "label_id"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Label printed successfully.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Label printed successfully.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Updates the label printing data based on the provided request payload.",
+        "tags": [
+          "Label"
         ]
       }
     },
