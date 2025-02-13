@@ -2045,7 +2045,7 @@
     },
     "/api/shinsei/request_list": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>Retrieves a paginated list of 'shinsei' requests with optional filtering by date range and office name.<br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -2166,6 +2166,162 @@
           }
         ],
         "summary": "Endpoint to retrieve a paginated list of 'shinsei' requests with optional filtering by date range and office name.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/result_list": {
+      "get": {
+        "description": "<br/>This function verifies the provided authorization token, then extracts filter criteria<br/>from the request parameters to fetch the matching `shinsei` records.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the status of the 'shinsei'.",
+            "in": "query",
+            "name": "shinsei_status",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by building type.",
+            "in": "query",
+            "name": "kenchiku_type",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by a substring in the project name.",
+            "in": "query",
+            "name": "koji_name",
+            "required": false,
+            "type": "string",
+            "x-example": "name"
+          },
+          {
+            "description": "Start date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "start_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-01"
+          },
+          {
+            "description": "End date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "end_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-01"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved filtered shinsei results.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "group_001",
+                        "type": "string"
+                      },
+                      "insert_date": {
+                        "example": "2025-01-01T09:00:00Z",
+                        "type": "string"
+                      },
+                      "kenchiku_gyosya": {
+                        "example": "XYZ Construction",
+                        "type": "string"
+                      },
+                      "kenchiku_sekininsya": {
+                        "example": "Taro Yamada",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Construction Project A",
+                        "type": "string"
+                      },
+                      "read_flg": {
+                        "example": "0",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "example": "1",
+                        "type": "string"
+                      },
+                      "syozaichi": {
+                        "example": "Tokyo",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-02-01T12:34:56Z",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve a paginated list of filtered shinsei results.",
         "tags": [
           "Shinsei"
         ]
