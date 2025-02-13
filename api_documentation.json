@@ -2056,35 +2056,35 @@
           },
           {
             "description": "The start date in 'YYYY-MM-DD' format to filter 'shinsei' requests.",
-            "example": "2025-01-01",
             "in": "query",
             "name": "start_date",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "x-example": "2025-01-01"
           },
           {
             "description": "The end date in 'YYYY-MM-DD' format to filter 'shinsei' requests.",
-            "example": "2025-02-01",
             "in": "query",
             "name": "end_date",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "x-example": "2025-02-01"
           },
           {
             "description": "The office name to filter 'shinsei' requests based on the user's office.",
-            "example": "Tokyo Office",
             "in": "query",
             "name": "office_name",
             "required": false,
-            "type": "string"
+            "type": "string",
+            "x-example": "Tokyo Office"
           },
           {
             "description": "The page number for pagination. Defaults to 1 if not provided.",
-            "example": 1,
             "in": "query",
             "name": "page",
             "required": false,
-            "type": "integer"
+            "type": "integer",
+            "x-example": 1
           }
         ],
         "responses": {
