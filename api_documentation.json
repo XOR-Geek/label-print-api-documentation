@@ -2632,8 +2632,7 @@
             "type": "string"
           },
           {
-            "description": "Filter by union name.",
-            "expample": "Union Name",
+            "description": "Filter by union name(e.g., \"Union Name\").",
             "in": "query",
             "name": "union_name",
             "type": "string"
