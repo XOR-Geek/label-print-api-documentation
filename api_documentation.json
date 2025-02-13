@@ -11,7 +11,7 @@
   "paths": {
     "/api/adjust_label/get_data": {
       "get": {
-        "description": "<br/>This endpoint receives a GET request with a user ID as a query parameter, <br/>verifies the authentication token, and fetches the adjustment data <br/>associated with the user ID from `adjust_service`.<br/><br/>Query Parameters:<br/>    - user_id (str): The ID of the user for whom adjustment data is requested.<br/><br/>Headers:<br/>    - Authorization (str): Bearer token to authenticate the user.<br/>    <br/>Returns:<br/><br/>    - 200 OK: JSON response with the adjustment data if retrieval is successful.<br/>    - 401 Unauthorized: JSON error message if the authorization token is <br/>      missing or invalid.<br/>    - 500 Internal Server Error: JSON error message with details if an <br/>      unexpected error occurs.  <br/>",
+        "description": "<br/>This endpoint receives a GET request with a user ID as a query parameter, <br/>verifies the authentication token, and fetches the adjustment data <br/>associated with the user ID from `adjust_service`.<br/><br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -87,7 +87,7 @@
     },
     "/api/adjust_label/store": {
       "post": {
-        "description": "<br/>This endpoint receives a POST request with adjustment data and saves it <br/>using `adjust_service.store_adjust_details` after verifying the <br/>authorization token.<br/><br/>Headers:<br/>    - Authorization (str): Bearer token to authenticate the user.<br/><br/>Returns:<br/><br/>    - 200 OK: JSON response with stored data if the operation is successful.<br/>    - 401 Unauthorized: JSON error message if the authorization token <br/>        is missing or invalid.<br/>    - 500 Internal Server Error: JSON error message with details if an <br/>        unexpected error occurs.<br/>",
+        "description": "<br/>This endpoint receives a POST request with adjustment data and saves it <br/>using `adjust_service.store_adjust_details` after verifying the <br/>authorization token.<br/><br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -182,7 +182,7 @@
     },
     "/api/company/list": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>Retrieves a list of companies from the 'company_mst' collection. The list includes <br/>  'company_code' and 'company_name'. The results are sorted by 'company_name_kana' <br/>  in a locale-aware manner.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -763,7 +763,7 @@
     },
     "/api/group/delete": {
       "post": {
-        "description": "<br/>Request Body:<br/>    JSON: The data containing the group ID to be deleted.<br/><br/>Returns:<br/>    JSON: A JSON response indicating the result of the delete operation.<br/>        - On success: 200 OK with a confirmation message.<br/>        - On missing: 404 if Group id not found<br/>        - On failure: 401 Unauthorized if the token is missing or invalid,<br/>          or 500 Internal Server Error for other issues.<br/><br/>",
+        "description": "<br/>This endpoint marks a group as deleted by updating its `delete_date` field with the current timestamp.<br/>  The group is identified by its `group_id`. If the group is found, it is updated; otherwise, a not found error is returned.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -859,7 +859,7 @@
     },
     "/api/group/edit": {
       "get": {
-        "description": "<br/>Query Parameters:<br/>    - group_id: The ID of the group to be edited.<br/><br/>Returns:<br/>    JSON: A JSON response containing the group data for editing and HTTP status code.<br/>        - On success: 200 OK with the group data.<br/><br/>",
+        "description": "<br/>This endpoint retrieves the necessary data for editing a specific group. The group ID <br/>  is provided as a query parameter. If the group exists, it returns the group data; <br/>  otherwise, an error message is returned.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -959,7 +959,7 @@
     },
     "/api/group/group_all_list": {
       "get": {
-        "description": "<br/>Returns:<br/>    JSON: A JSON response containing the list of groups and HTTP status code.<br/>        - On success: 200 OK with group data.<br/><br/>",
+        "description": "<br/>RThis endpoint returns a list of all groups that are not marked as deleted.<br/>  The response includes the total count of groups and the list of group data.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -1040,7 +1040,7 @@
     },
     "/api/group/group_list": {
       "get": {
-        "description": "<br/>Query Parameters:<br/>    - group_name: (optional) Filter groups by this name.<br/>    - group_name_sub: (optional) Filter groups by this substring in their name.<br/>    - page: (optional) Specify the page number for pagination.<br/><br/>Returns:<br/>    JSON: A JSON response containing the filtered list of groups and HTTP status code.<br/>        - On success: 200 OK with group data.<br/><br/>",
+        "description": "<br/>This endpoint retrieves a paginated list of groups, allowing for optional filtering by <br/>  group name or substring, and specifying sorting preferences. It returns the total count <br/>  of matching groups along with the paginated group data.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -1155,7 +1155,7 @@
     },
     "/api/group/store": {
       "post": {
-        "description": "<br/>Request Body:<br/>    JSON: The data of the group to be stored.<br/><br/>Returns:<br/>    JSON: A JSON response indicating the result of the store operation.<br/>        - On success: 200 Created with the created group data.<br/><br/>",
+        "description": "<br/>This endpoint accepts a request to create a new group. The group data is stored in the Firestore <br/>  database, and a success message is returned once the group is created.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -1239,7 +1239,7 @@
     },
     "/api/group/update": {
       "post": {
-        "description": "<br/><br/>Request Body:<br/>    JSON: The updated data for the group.<br/><br/>Returns:<br/>    JSON: A JSON response indicating the result of the update operation.<br/>        - On success: 200 OK with the updated group data.<br/>        - On failure: 401 Unauthorized if the token is missing or invalid,<br/>          or 500 Internal Server Error for other issues.<br/>",
+        "description": "<br/><br/>This endpoint updates the information of an existing group. The group data is provided <br/>  in the request body. If the group exists, it returns the updated data; otherwise, an error message is returned.<br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -2295,7 +2295,7 @@
     },
     "/api/merchandise/list": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>Retrieves a list of merchandise from the 'merchandise_view' collection based on various <br/>  filters such as merchandise ID, company code, construction method, sekou type, and match type.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -2807,7 +2807,7 @@
     },
     "/api/shinsei/change_read": {
       "post": {
-        "description": "<br/>",
+        "description": "<br/>Updates the 'read_flg' field to indicate whether the shinsei has been read,<br/>  and updates the 'read_user_id' to track which user marked it as read.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -3178,7 +3178,7 @@
     },
     "/api/shinsei/delete": {
       "post": {
-        "description": "<br/>",
+        "description": "<br/>Deletes a shinsei entry by updating its status and any associated details. <br/>  Requires user authentication via a Bearer token.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token to authenticate the user.",
@@ -4559,7 +4559,7 @@
     },
     "/api/union/delete": {
       "post": {
-        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/>Query Parameters:<br/>    - union_id (str): ID of the union to delete.    <br/><br/>",
+        "description": "<br/>This endpoint marks a union entry as deleted by updating its `delete_date` field.  <br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -4659,7 +4659,7 @@
     },
     "/api/union/edit": {
       "get": {
-        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Query Parameters:<br/>    - union_id (str): ID of the union to fetch.<br/><br/>",
+        "description": "<br/>This endpoint retrieves the details of a union based on the given `union_id` for editing purposes.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -4760,7 +4760,7 @@
     },
     "/api/union/store": {
       "post": {
-        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Request Body:<br/>    - JSON data with union details.<br/><br/>",
+        "description": "<br/>This endpoint creates a new union based on the provided details in the request body.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -4912,7 +4912,7 @@
     },
     "/api/union/union_group_wise_list": {
       "get": {
-        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Query Parameters:<br/>    - group_id (str): Filter unions by group ID.<br/><br/>      <br/>",
+        "description": "<br/>This endpoint retrieves a list of unions filtered by the provided `group_id`.<br/><br/>      <br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -5008,7 +5008,7 @@
     },
     "/api/union/union_list": {
       "get": {
-        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Query Parameters:<br/>    - group_id (str): Filter unions by group ID.<br/>    - union_name (str): Filter unions by name.<br/>    - page (str): Page number for pagination.<br/><br/>",
+        "description": "<br/>This endpoint retrieves a paginated list of unions, with the option to filter by group ID, union name, and sort the results.<br/>  Pagination is controlled via the `page` and `limit` parameters.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -5129,7 +5129,7 @@
     },
     "/api/union/union_list_group": {
       "get": {
-        "description": "<br/>Parameters:<br/>    group_id (str): ID of the group to filter unions.<br/>    union_name (str): Name of the union to filter unions.<br/>    page (str): Page number for pagination.<br/><br/>",
+        "description": "<br/>This endpoint retrieves a paginated list of unions, with the option to filter by group ID, union name, and sort the results.<br/>  Pagination is controlled via the `page` and `limit` parameters.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -5251,7 +5251,7 @@
     },
     "/api/union/update": {
       "post": {
-        "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/><br/>Request Body:<br/>    - JSON data with updated union details.<br/><br/>",
+        "description": "<br/><br/>This endpoint updates the details of an existing union using the provided `union_id` and updated union data.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authentication.",
@@ -5615,7 +5615,7 @@
     },
     "/api/user/delete": {
       "post": {
-        "description": "<br/>Args:<br/>    data (dict): A dictionary containing the user ID to be deleted.<br/><br/>",
+        "description": "<br/>This endpoint allows for a soft delete of a user. The user ID should be passed in the request body. If the user <br/>  is successfully marked as deleted, a success message will be returned. If the user cannot be found, a \"Not Found\" <br/>  error will be returned.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -5712,7 +5712,7 @@
     },
     "/api/user/edit": {
       "get": {
-        "description": "<br/>Args:<br/>    user_id (str): The ID of the user to edit.<br/><br/>",
+        "description": "<br/>This endpoint retrieves user data for editing purposes. It requires the user ID to be passed as a query parameter<br/>  and an Authorization token for authentication.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -5804,7 +5804,7 @@
     },
     "/api/user/store": {
       "post": {
-        "description": "<br/>Args:<br/>    data (dict): A dictionary containing user data (e.g., name, email, user type).<br/><br/>",
+        "description": "<br/>This endpoint creates a new user based on the provided data in the request body. <br/>  It requires authentication through a Bearer token in the request header.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -5948,7 +5948,7 @@
     },
     "/api/user/update": {
       "post": {
-        "description": "<br/>Args:<br/>    data (dict): A dictionary containing updated user data (e.g., name, email, user type).<br/><br/>",
+        "description": "<br/>This endpoint allows updating an existing user's details. The user ID should be passed in the request body <br/>  along with the updated data. It will return a success message if the user is updated or an error if the user <br/>  cannot be found.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -6133,7 +6133,7 @@
     },
     "/api/user/user_csv_list": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>This endpoint fetches a list of users based on various optional query parameters such as login ID, user name, <br/>  email, user type, and others. The response returns the user data in a CSV format. If no filter is provided, <br/>  all users are returned.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -6308,7 +6308,7 @@
     },
     "/api/user/user_csv_list_group": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>This endpoint fetches a list of users filtered by group and union IDs. Optionally, you can apply additional filters <br/>  such as login ID, user name, email, and user type. The returned user list is formatted in CSV format.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -6483,7 +6483,7 @@
     },
     "/api/user/user_csv_list_union": {
       "get": {
-        "description": "<br/>",
+        "description": "<br/>This endpoint fetches a list of users filtered by the union ID. Optionally, you can apply additional filters such as <br/>  login ID, user name, email, and user type. The returned user list is formatted in CSV format.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -6658,7 +6658,7 @@
     },
     "/api/user/user_list": {
       "get": {
-        "description": "<br/>Args:<br/>    login_id (str): The login ID of the user (optional).<br/>    user_name (str): The name of the user (optional).<br/>    email (str): The email address of the user (optional).<br/>    user_type (str): The type of user (optional).<br/>    tokuyu_flg (str): The flag for tokuyu (optional).<br/>    user_system_no (str): The system number of the user (optional).<br/>    union_id (str): The ID of the union to which the user belongs (optional).<br/>    group_id (str): The ID of the group to which the user belongs (optional).<br/>    page (int): The page number for pagination (optional).<br/><br/>",
+        "description": "<br/>This endpoint retrieves a list of users based on optional query parameters such as login_id, user_name, email, user_type, etc.<br/>  If no filters are provided, all users will be returned with pagination applied.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -6792,7 +6792,7 @@
     },
     "/api/user/user_list_group": {
       "get": {
-        "description": "<br/>Args:<br/>    group_id (str): The ID of the group to which the user belongs.<br/>    Other arguments are similar to the ones in `get_list`.<br/><br/>",
+        "description": "<br/>This endpoint retrieves a list of users filtered by the group ID. Other query parameters like login_id, user_name, <br/>  email, user_type, etc., can be used to further filter the results. The results are paginated.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
@@ -6933,7 +6933,7 @@
     },
     "/api/user/user_list_union": {
       "get": {
-        "description": "<br/>Args:<br/>    union_id (str): The ID of the union to which the user belongs.<br/>    Other arguments are similar to the ones in `get_list`.<br/><br/>",
+        "description": "<br/>This endpoint retrieves a list of users filtered by the union ID. Other query parameters like login_id, user_name, <br/>  email, user_type, etc., can be used to further filter the results. The results are paginated.<br/><br/>",
         "parameters": [
           {
             "description": "Bearer token for authorization.",
