@@ -2043,6 +2043,134 @@
         ]
       }
     },
+    "/api/shinsei/request_list": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The start date in 'YYYY-MM-DD' format to filter 'shinsei' requests.",
+            "example": "2025-01-01",
+            "in": "query",
+            "name": "start_date",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The end date in 'YYYY-MM-DD' format to filter 'shinsei' requests.",
+            "example": "2025-02-01",
+            "in": "query",
+            "name": "end_date",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The office name to filter 'shinsei' requests based on the user's office.",
+            "example": "Tokyo Office",
+            "in": "query",
+            "name": "office_name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The page number for pagination. Defaults to 1 if not provided.",
+            "example": 1,
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved 'shinsei' requests.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "group_001",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Construction Project A",
+                        "type": "string"
+                      },
+                      "office_name": {
+                        "example": "Tokyo Office",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_001",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-02-01T12:34:56Z",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve a paginated list of 'shinsei' requests with optional filtering by date range and office name.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
     "/api/union/delete": {
       "post": {
         "description": "<br/>Request Headers:<br/>    - Authorization: Bearer token for authentication.<br/>Query Parameters:<br/>    - union_id (str): ID of the union to delete.    <br/><br/>",
@@ -3134,7 +3262,7 @@
                   "type": "string"
                 },
                 "user_type": {
-                  "type": "integer"
+                  "type": "string"
                 },
                 "zip": {
                   "type": "string"
@@ -3301,8 +3429,8 @@
                   "type": "string"
                 },
                 "user_type": {
-                  "example": 4,
-                  "type": "integer"
+                  "example": "4",
+                  "type": "string"
                 },
                 "zip": {
                   "example": "4--11",
