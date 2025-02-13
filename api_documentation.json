@@ -180,6 +180,515 @@
         ]
       }
     },
+    "/api/company/list": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the company list.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "company_code": {
+                        "example": "COMP123",
+                        "type": "string"
+                      },
+                      "company_name": {
+                        "example": "Sample Company",
+                        "type": "string"
+                      },
+                      "company_name_kana": {
+                        "example": "サンプルカンパニー",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "API endpoint to get a list of companies from the 'company_mst' collection.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/create_shinsei": {
+      "post": {
+        "description": "<br/>This function requires the user to be authenticated via an `Authorization` token <br/>passed in the request headers. The token is verified using the `authenticate_service`.<br/>After verification, the function processes the provided `data` to create a new entry in <br/>the shinsei table and associated label tables.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the shinsei data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "item_type": {
+                  "example": [
+                    "2"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kaisu": {
+                  "example": "1.0",
+                  "type": "string"
+                },
+                "kenchiku_gyosya": {
+                  "example": "gyosya",
+                  "type": "string"
+                },
+                "kenchiku_kozo": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "kenchiku_sekininsya": {
+                  "example": "sekininsya",
+                  "type": "string"
+                },
+                "kenchiku_type": {
+                  "example": "2",
+                  "type": "string"
+                },
+                "kenchiku_yoto": {
+                  "example": "yoto",
+                  "type": "string"
+                },
+                "koho": {
+                  "example": [
+                    "直張"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "koji_name": {
+                  "example": "t1",
+                  "type": "string"
+                },
+                "kubun_area": {
+                  "example": [
+                    "1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kubun_kabe": {
+                  "example": [
+                    "1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kubun_kaisu": {
+                  "example": [
+                    "1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kukaku_num": {
+                  "example": [
+                    "1.0"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "label_num": {
+                  "example": [
+                    2
+                  ],
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "label_type": {
+                  "example": [
+                    "2"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "menseki": {
+                  "example": "1.0",
+                  "type": "string"
+                },
+                "merchandise_id": {
+                  "example": [
+                    "01001"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "nintei_no": {
+                  "example": [
+                    "QM-9253"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "office_name": {
+                  "example": "テスト事業所2",
+                  "type": "string"
+                },
+                "receive_type": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "shinsei_user_id": {
+                  "example": "440",
+                  "type": "string"
+                },
+                "shiyoryo": {
+                  "example": [
+                    "11.0"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "sitaji_name": {
+                  "example": [
+                    "不燃石膏ボード"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "syozaichi": {
+                  "example": "syozaichi",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully created the shinsei and label details.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Successfully created shinsei and label details",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to create a new shinsei (application) entry along with associated label details.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/dashboard": {
+      "get": {
+        "description": "<br/>This function requires the user to be authenticated via an `Authorization` token <br/>passed in the request headers. It verifies the token using the `authenticate_service`.<br/>After verifying the token, the function fetches shinsei request data for the user with <br/>the specified `user_id` by calling the `fetch_shinsei_data` method from the `shinsei_service`.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The user ID for which the shinsei data is to be fetched.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string",
+            "x-example": "user_123"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved shinsei data for the user.",
+            "schema": {
+              "properties": {
+                "request_count": {
+                  "example": 10,
+                  "type": "integer"
+                },
+                "result_count": {
+                  "example": 10,
+                  "type": "integer"
+                },
+                "result_data": {
+                  "items": {
+                    "properties": {
+                      "check_date": {
+                        "example": "2025-01-02T10:00:00Z",
+                        "type": "string"
+                      },
+                      "insert_date": {
+                        "example": "2025-01-01T09:00:00Z",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Construction Project A",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "example": "1",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error information.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Retrieves the shinsei data for a specific user based on their user ID.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/edit_shinsei": {
+      "get": {
+        "description": "<br/>This function requires the user to be authenticated via an `Authorization` token passed in the request headers.<br/>It verifies the token using the `authenticate_service` and fetches the corresponding shinsei data for the given `shinsei_id` <br/>by calling the `edit_shinsei_data` method from `shinsei_service`.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The ID of the shinsei entry to retrieve and edit.",
+            "in": "query",
+            "name": "shinsei_id",
+            "required": true,
+            "type": "string",
+            "x-example": "shinsei_123"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the shinsei data.",
+            "schema": {
+              "properties": {
+                "shinsei_data": {
+                  "example": {
+                    "koji_name": "Construction Project A",
+                    "shinsei_status": "1"
+                  },
+                  "type": "object"
+                },
+                "shinsei_detail_data": {
+                  "example": {
+                    "detail_key": "value"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found – The requested shinsei entry does not exist.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Not Found",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve and edit the shinsei data for a specific shinsei entry based on the provided `shinsei_id`.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
     "/api/get_reset_user_id": {
       "get": {
         "description": "<br/>It retrieves the JSON data from the request, which should <br/>contain a one-time reset URL, and calls the <br/>`user_reset_password_mail` method to process the password reset <br/>functionality.<br/><br/>",
@@ -849,6 +1358,115 @@
         "summary": "Update an existing group's information.",
         "tags": [
           "Group"
+        ]
+      }
+    },
+    "/api/kumiai_dashboard": {
+      "get": {
+        "description": "<br/>This function validates the provided authorization token, then fetches the kumiai shinsei <br/>records for the specified `union_id` using the `fetch_kumiai_shinsei` service.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Union ID to filter the kumiai shinsei data.",
+            "in": "query",
+            "name": "union_id",
+            "required": true,
+            "type": "string",
+            "x-example": "union_001"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved kumiai shinsei data for the specified union.",
+            "schema": {
+              "properties": {
+                "request_count": {
+                  "example": 10,
+                  "type": "integer"
+                },
+                "request_data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "group_001",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Building Project A",
+                        "type": "string"
+                      },
+                      "office_name": {
+                        "example": "Tokyo Office",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-01-01",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "result_count": {
+                  "example": 50,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details here",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve kumiai shinsei data for the dashboard.",
+        "tags": [
+          "Shinsei"
         ]
       }
     },
@@ -1675,6 +2293,150 @@
         ]
       }
     },
+    "/api/merchandise/list": {
+      "get": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by the merchandise ID.",
+            "in": "query",
+            "name": "merchandise_id",
+            "required": false,
+            "type": "string",
+            "x-example": "merch_123"
+          },
+          {
+            "description": "Filter by the company code.",
+            "in": "query",
+            "name": "company_code",
+            "required": false,
+            "type": "string",
+            "x-example": "ABC123"
+          },
+          {
+            "description": "Filter by the construction method.",
+            "in": "query",
+            "name": "search_construction_method",
+            "required": false,
+            "type": "string",
+            "x-example": "method_1"
+          },
+          {
+            "description": "Filter by sekou type.",
+            "in": "query",
+            "name": "sekou",
+            "required": false,
+            "type": "string",
+            "x-example": "sekou_1"
+          },
+          {
+            "description": "Filter by exact ('1') or partial ('0') match.",
+            "in": "query",
+            "name": "match",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the merchandise list.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "item_type": {
+                        "example": "Item Type A",
+                        "type": "string"
+                      },
+                      "koho": {
+                        "example": "直張",
+                        "type": "string"
+                      },
+                      "label_type": {
+                        "example": "type_A",
+                        "type": "string"
+                      },
+                      "list_sample_book_cm_name": {
+                        "example": "Sample Book A",
+                        "type": "string"
+                      },
+                      "list_sample_book_name": {
+                        "example": "Sample Name",
+                        "type": "string"
+                      },
+                      "merchandise_id": {
+                        "example": "merch_123",
+                        "type": "string"
+                      },
+                      "nintei_no": {
+                        "example": "nintei_001",
+                        "type": "string"
+                      },
+                      "search_construction_method": {
+                        "example": "method_1",
+                        "type": "string"
+                      },
+                      "sitaji_name": {
+                        "example": "Sekou Type A",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "API endpoint to search for merchandise in the 'merchandise_view' collection.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
     "/api/password_reset": {
       "post": {
         "description": "<br/>This endpoint handles the password reset process by accepting a JSON payload<br/>containing user identification and new password information. It processes the<br/>request and returns an appropriate response indicating the outcome of the <br/>password reset attempt.<br/><br/>",
@@ -2043,6 +2805,457 @@
         ]
       }
     },
+    "/api/shinsei/change_read": {
+      "post": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Data object containing the 'shinsei_id' and 'shinsei_user_id'.",
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "shinsei_id": {
+                  "example": "shinsei_123",
+                  "type": "string"
+                },
+                "shinsei_user_id": {
+                  "example": "user_001",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated the 'read_flg' and 'read_user_id'.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Read Flag Changed successfully",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to change the 'read_flg' and 'read_user_id' fields in the 'label_print_tbl_shinsei' collection.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/change_status": {
+      "post": {
+        "description": "<br/>This function checks the authorization token, processes the request data, <br/>and updates the status of a Shinsei document based on the provided `shinsei_id` and `shinsei_status`.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Data for the status update, including `shinsei_id`, `shinsei_status`, `read_flg`, `read_user`, and `check_by`.",
+            "in": "body",
+            "name": "data",
+            "required": true,
+            "schema": {
+              "properties": {
+                "check_by": {
+                  "example": "user_002",
+                  "type": "string"
+                },
+                "read_flg": {
+                  "example": "0",
+                  "type": "string"
+                },
+                "read_user": {
+                  "example": "user_001",
+                  "type": "string"
+                },
+                "shinsei_id": {
+                  "example": "shinsei_123",
+                  "type": "string"
+                },
+                "shinsei_status": {
+                  "enum": [
+                    "1",
+                    "0"
+                  ],
+                  "example": "1",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully approved or rejected the request.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Request approved or Request rejected",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request – Missing or invalid data.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Invalid data",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – If the token is missing or invalid.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error – Unexpected error during processing.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error message if available.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to handle the POST request to approve or reject a Shinsei document status change.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/copy_all_list_user": {
+      "get": {
+        "description": "<br/>This endpoint retrieves data from the Firestore database based on the provided query parameters. <br/>It filters records by `shinsei_status`, `kenchiku_type`, `koji_name`, `kenchiku_gyosya`, <br/>`start_date`, `end_date`, `user_id`, `merchandise`, and `nintei`. The results are paginated <br/>and returned in the specified format.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "ID of the user whose records are being fetched.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string",
+            "x-example": "user31"
+          },
+          {
+            "description": "Status of the Shinsei record (optional).",
+            "in": "query",
+            "name": "shinsei_status",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Type of construction (optional).",
+            "in": "query",
+            "name": "kenchiku_type",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Koji name to filter by (optional).",
+            "in": "query",
+            "name": "koji_name",
+            "type": "string",
+            "x-example": "name1"
+          },
+          {
+            "description": "Construction company name to filter by (optional).",
+            "in": "query",
+            "name": "kenchiku_gyosya",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Start date to filter records (optional).",
+            "in": "query",
+            "name": "start_date",
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "End date to filter records (optional).",
+            "in": "query",
+            "name": "end_date",
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "Page number for pagination (optional).",
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "x-example": 1
+          },
+          {
+            "description": "Merchandise ID to filter by (optional).",
+            "in": "query",
+            "name": "merchandise",
+            "type": "string",
+            "x-example": "id"
+          },
+          {
+            "description": "Nintei number to filter by (optional).",
+            "in": "query",
+            "name": "nintei",
+            "type": "string",
+            "x-example": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the paginated Shinsei records.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "type": "string"
+                      },
+                      "insert_date": {
+                        "type": "string"
+                      },
+                      "kenchiku_gyosya": {
+                        "type": "string"
+                      },
+                      "kenchiku_sekininsya": {
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "type": "string"
+                      },
+                      "read_flg": {
+                        "type": "boolean"
+                      },
+                      "shinsei_id": {
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "type": "string"
+                      },
+                      "syozaichi": {
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a paginated list of all Shinsei records for a user, with optional filters.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/delete": {
+      "post": {
+        "description": "<br/>",
+        "parameters": [
+          {
+            "description": "Bearer token to authenticate the user.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the adjustment data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "shinsei_id": {
+                  "example": "1",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the shinsei entry.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Delete successful",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "API Endpoint to delete a shinsei entry by updating and its associated details.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
     "/api/shinsei/request_list": {
       "get": {
         "description": "<br/>Retrieves a paginated list of 'shinsei' requests with optional filtering by date range and office name.<br/>",
@@ -2166,6 +3379,143 @@
           }
         ],
         "summary": "Endpoint to retrieve a paginated list of 'shinsei' requests with optional filtering by date range and office name.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/request_list_union": {
+      "get": {
+        "description": "<br/>This function validates the provided authorization token and fetches a list of shinsei requests <br/>filtered by `start_date`, `end_date`, `office_name`, and `union_id`. It supports pagination <br/>through the `page` parameter.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Union ID to filter the shinsei requests.",
+            "in": "query",
+            "name": "union_id",
+            "required": true,
+            "type": "string",
+            "x-example": "union_001"
+          },
+          {
+            "description": "Start date for filtering requests ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "start_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-01"
+          },
+          {
+            "description": "End date for filtering requests ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "end_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "Filter by office name.",
+            "in": "query",
+            "name": "office_name",
+            "required": false,
+            "type": "string",
+            "x-example": "Tokyo Office"
+          },
+          {
+            "description": "Page number for pagination.",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved filtered shinsei requests for the specific union.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "end_date": {
+                        "example": "2025-01-31",
+                        "type": "string"
+                      },
+                      "office_name": {
+                        "example": "Tokyo Office",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "start_date": {
+                        "example": "2025-01-01",
+                        "type": "string"
+                      },
+                      "status": {
+                        "example": "pending",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details here",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve a list of shinsei requests for a specific union with optional filters.",
         "tags": [
           "Shinsei"
         ]
@@ -2322,6 +3672,887 @@
           }
         ],
         "summary": "Endpoint to retrieve a paginated list of filtered shinsei results.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/result_list_group": {
+      "get": {
+        "description": "<br/>This function verifies the provided authorization token, then extracts filter criteria<br/>from the request parameters to fetch the matching `shinsei` records.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Filter by Group ID.",
+            "in": "query",
+            "name": "group_id",
+            "required": true,
+            "type": "string",
+            "x-example": "group_001"
+          },
+          {
+            "description": "Filter by the status of the 'shinsei'.",
+            "in": "query",
+            "name": "shinsei_status",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by building type.",
+            "in": "query",
+            "name": "kenchiku_type",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by a substring in the project name.",
+            "in": "query",
+            "name": "koji_name",
+            "required": false,
+            "type": "string",
+            "x-example": "name"
+          },
+          {
+            "description": "Start date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "start_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-01"
+          },
+          {
+            "description": "End date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "end_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-01"
+          },
+          {
+            "description": "Page number for pagination.",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by the read flag.",
+            "in": "query",
+            "name": "midoku",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by merchandise ID in detail records.",
+            "in": "query",
+            "name": "product",
+            "required": false,
+            "type": "string",
+            "x-example": "product_001"
+          },
+          {
+            "description": "Filter by certification number.",
+            "in": "query",
+            "name": "certification",
+            "required": false,
+            "type": "string",
+            "x-example": "cert_123"
+          },
+          {
+            "description": "Filter by user registration number.",
+            "in": "query",
+            "name": "registration",
+            "required": false,
+            "type": "string",
+            "x-example": "reg_001"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved filtered shinsei results grouped by Group ID.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "group_001",
+                        "type": "string"
+                      },
+                      "insert_date": {
+                        "example": "2025-01-01T09:00:00Z",
+                        "type": "string"
+                      },
+                      "kenchiku_gyosya": {
+                        "example": "XYZ Construction",
+                        "type": "string"
+                      },
+                      "kenchiku_sekininsya": {
+                        "example": "Taro Yamada",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Construction Project A",
+                        "type": "string"
+                      },
+                      "read_flg": {
+                        "example": "0",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "example": "1",
+                        "type": "string"
+                      },
+                      "syozaichi": {
+                        "example": "Tokyo",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-02-01T12:34:56Z",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details here",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve a paginated list of filtered shinsei results By Group ID.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/result_list_union": {
+      "get": {
+        "description": "<br/>This function verifies the provided authorization token, then extracts filter criteria<br/>from the request parameters to fetch the matching `shinsei` records.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The Union ID to filter the records.",
+            "in": "query",
+            "name": "union_id",
+            "required": true,
+            "type": "string",
+            "x-example": "Name"
+          },
+          {
+            "description": "The page number for pagination. Default is 1.",
+            "in": "query",
+            "name": "page",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by shinsei status.",
+            "in": "query",
+            "name": "shinsei_status",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by building type.",
+            "in": "query",
+            "name": "kenchiku_type",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by project name substring.",
+            "in": "query",
+            "name": "koji_name",
+            "type": "string",
+            "x-example": "name"
+          },
+          {
+            "description": "Filter by contractor name substring.",
+            "in": "query",
+            "name": "kenchiku_gyosya",
+            "type": "string",
+            "x-example": "gyosya"
+          },
+          {
+            "description": "Start date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "start_date",
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "End date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "end_date",
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "Read flag filter.",
+            "in": "query",
+            "name": "midoku",
+            "type": "string",
+            "x-example": 0
+          },
+          {
+            "description": "Filter by merchandise ID.",
+            "in": "query",
+            "name": "product",
+            "type": "string",
+            "x-example": "id"
+          },
+          {
+            "description": "Filter by certification number.",
+            "in": "query",
+            "name": "certification",
+            "type": "string",
+            "x-example": "number"
+          },
+          {
+            "description": "Filter by user registration number.",
+            "in": "query",
+            "name": "registration",
+            "type": "string",
+            "x-example": "registration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved paginated shinsei results.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "group_001",
+                        "type": "string"
+                      },
+                      "insert_date": {
+                        "example": "2025-01-01",
+                        "type": "string"
+                      },
+                      "kenchiku_gyosya": {
+                        "example": "XYZ Construction",
+                        "type": "string"
+                      },
+                      "kenchiku_sekininsya": {
+                        "example": "ABC Corporation",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Building Project A",
+                        "type": "string"
+                      },
+                      "read_flg": {
+                        "example": "0",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "example": "1",
+                        "type": "string"
+                      },
+                      "syozaichi": {
+                        "example": "Tokyo",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-01-01",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details here",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve a paginated list of filtered shinsei results By Union ID.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/result_list_user": {
+      "get": {
+        "description": "<br/>This function verifies the provided authorization token, then extracts filter criteria<br/>from the request parameters to fetch the matching `shinsei` records.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The User ID to filter the records.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string",
+            "x-example": "Name"
+          },
+          {
+            "description": "The page number for pagination. Default is 1.",
+            "in": "query",
+            "name": "page",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by shinsei status.",
+            "in": "query",
+            "name": "shinsei_status",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by building type.",
+            "in": "query",
+            "name": "kenchiku_type",
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Filter by project name substring.",
+            "in": "query",
+            "name": "koji_name",
+            "type": "string",
+            "x-example": "name"
+          },
+          {
+            "description": "Filter by contractor name substring.",
+            "in": "query",
+            "name": "kenchiku_gyosya",
+            "type": "string",
+            "x-example": "gyosya"
+          },
+          {
+            "description": "Start date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "start_date",
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "End date for filtering update dates ('YYYY-MM-DD').",
+            "in": "query",
+            "name": "end_date",
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "Read flag filter.",
+            "in": "query",
+            "name": "midoku",
+            "type": "string",
+            "x-example": 0
+          },
+          {
+            "description": "Filter by merchandise ID.",
+            "in": "query",
+            "name": "product",
+            "type": "string",
+            "x-example": "id"
+          },
+          {
+            "description": "Filter by certification number.",
+            "in": "query",
+            "name": "certification",
+            "type": "string",
+            "x-example": "number"
+          },
+          {
+            "description": "Filter by user registration number.",
+            "in": "query",
+            "name": "registration",
+            "type": "string",
+            "x-example": "registration"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved paginated shinsei results.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "group_id": {
+                        "example": "group_001",
+                        "type": "string"
+                      },
+                      "insert_date": {
+                        "example": "2025-01-01",
+                        "type": "string"
+                      },
+                      "kenchiku_gyosya": {
+                        "example": "XYZ Construction",
+                        "type": "string"
+                      },
+                      "kenchiku_sekininsya": {
+                        "example": "ABC Corporation",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Building Project A",
+                        "type": "string"
+                      },
+                      "read_flg": {
+                        "example": "0",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "example": "1",
+                        "type": "string"
+                      },
+                      "syozaichi": {
+                        "example": "Tokyo",
+                        "type": "string"
+                      },
+                      "union_id": {
+                        "example": "union_001",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-01-01",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 100,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details here",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to retrieve a paginated list of filtered shinsei results By User ID.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/shinsei_detail": {
+      "get": {
+        "description": "<br/>This endpoint fetches the Shinsei record details, including user information and related details <br/>from the `label_print_tbl_shinsei`, `label_print_mst_users`, `label_print_mst_union`, and <br/>`label_print_tbl_shinsei_detail` collections.<br/><br/>The API requires the user to be authenticated via an Authorization token and requires a `shinsei_id` <br/>to be provided as a query parameter.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "ID of the Shinsei document to retrieve details for.",
+            "in": "query",
+            "name": "shinsei_id",
+            "required": true,
+            "type": "string",
+            "x-example": "shinsei_123"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved Shinsei document details.",
+            "schema": {
+              "properties": {
+                "shinsei": {
+                  "properties": {
+                    "manager_name": {
+                      "example": "Taro Yamada",
+                      "type": "string"
+                    },
+                    "office_name": {
+                      "example": "Tokyo Office",
+                      "type": "string"
+                    },
+                    "shinsei_id": {
+                      "example": "shinsei_123",
+                      "type": "string"
+                    },
+                    "union_name": {
+                      "example": "Union A",
+                      "type": "string"
+                    },
+                    "user_system_no": {
+                      "example": "user_001",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "shinsei_details": {
+                  "properties": {
+                    "description": {
+                      "example": "Shinsei detail description",
+                      "type": "string"
+                    },
+                    "detail_id": {
+                      "example": "detail_001",
+                      "type": "string"
+                    },
+                    "update_date": {
+                      "example": "2025-02-01T12:34:56Z",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request – Missing `shinsei_id` parameter.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "shinsei_id is required",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Error details",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Retrieves detailed information about a specific Shinsei document using its `shinsei_id`.",
+        "tags": [
+          "Shinsei"
+        ]
+      }
+    },
+    "/api/shinsei/shinsei_list": {
+      "get": {
+        "description": "koji name, and date range.<br/><br/>The endpoint retrieves shinsei records filtered by the provided query parameters. The response contains <br/>paginated data based on the specified `page` and filters for `kenchiku_type`, `koji_name`, `start_date`, <br/>`end_date`, and `user_id`.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The user ID for fetching the shinsei records.",
+            "in": "query",
+            "name": "user_id",
+            "required": true,
+            "type": "string",
+            "x-example": "user_123"
+          },
+          {
+            "description": "Optional filter for construction type.",
+            "in": "query",
+            "name": "kenchiku_type",
+            "required": false,
+            "type": "string",
+            "x-example": "1"
+          },
+          {
+            "description": "Optional filter for koji name (matches the start or end of the value).",
+            "in": "query",
+            "name": "koji_name",
+            "required": false,
+            "type": "string",
+            "x-example": "name"
+          },
+          {
+            "description": "Optional start date for filtering records, formatted as 'YYYY-MM-DD'.",
+            "in": "query",
+            "name": "start_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "Optional end date for filtering records, formatted as 'YYYY-MM-DD'.",
+            "in": "query",
+            "name": "end_date",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-01-31"
+          },
+          {
+            "description": "The page number for pagination (defaults to 1 if not provided).",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer",
+            "x-example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved paginated shinsei data.",
+            "schema": {
+              "properties": {
+                "data": {
+                  "items": {
+                    "properties": {
+                      "kenchiku_gyosya": {
+                        "example": "Construction Corp.",
+                        "type": "string"
+                      },
+                      "kenchiku_sekininsya": {
+                        "example": "John Doe",
+                        "type": "string"
+                      },
+                      "koji_name": {
+                        "example": "Construction Project A",
+                        "type": "string"
+                      },
+                      "shinsei_id": {
+                        "example": "shinsei_123",
+                        "type": "string"
+                      },
+                      "shinsei_status": {
+                        "example": "1",
+                        "type": "string"
+                      },
+                      "syozaichi": {
+                        "example": "Location A",
+                        "type": "string"
+                      },
+                      "update_date": {
+                        "example": "2025-01-01T09:00:00Z",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "total_count": {
+                  "example": 50,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authentication token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "example": "Detailed error information.",
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Fetches a paginated list of shinsei records for a specific user, with optional filters for construction type, ",
         "tags": [
           "Shinsei"
         ]
@@ -3145,6 +5376,241 @@
         "summary": "Updates an existing union entry.",
         "tags": [
           "Union"
+        ]
+      }
+    },
+    "/api/update_shinsei": {
+      "post": {
+        "description": "<br/>Updates an existing shinsei entry by deleting the old entry and creating a new one with the updated data provided in the request body.<br/><br/>",
+        "parameters": [
+          {
+            "description": "Bearer token for authentication.",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The JSON payload containing the shinsei data.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "item_type": {
+                  "example": [
+                    "2"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kaisu": {
+                  "example": "1.0",
+                  "type": "string"
+                },
+                "kenchiku_gyosya": {
+                  "example": "gyosya",
+                  "type": "string"
+                },
+                "kenchiku_kozo": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "kenchiku_sekininsya": {
+                  "example": "sekininsya",
+                  "type": "string"
+                },
+                "kenchiku_type": {
+                  "example": "2",
+                  "type": "string"
+                },
+                "kenchiku_yoto": {
+                  "example": "yoto",
+                  "type": "string"
+                },
+                "koho": {
+                  "example": [
+                    "直張"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "koji_name": {
+                  "example": "t1",
+                  "type": "string"
+                },
+                "kubun_area": {
+                  "example": [
+                    "1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kubun_kabe": {
+                  "example": [
+                    "1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kubun_kaisu": {
+                  "example": [
+                    "1"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "kukaku_num": {
+                  "example": [
+                    "1.0"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "label_num": {
+                  "example": [
+                    2
+                  ],
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                },
+                "label_type": {
+                  "example": [
+                    "2"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "menseki": {
+                  "example": "1.0",
+                  "type": "string"
+                },
+                "merchandise_id": {
+                  "example": [
+                    "01001"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "nintei_no": {
+                  "example": [
+                    "QM-9253"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "office_name": {
+                  "example": "テスト事業所2",
+                  "type": "string"
+                },
+                "receive_type": {
+                  "example": "1",
+                  "type": "string"
+                },
+                "shinsei_id": {
+                  "example": "4XfjRgJC50rU1kVqQADq",
+                  "type": "string"
+                },
+                "shinsei_user_id": {
+                  "example": "440",
+                  "type": "string"
+                },
+                "shiyoryo": {
+                  "example": [
+                    "11.0"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "sitaji_name": {
+                  "example": [
+                    "不燃石膏ボード"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "syozaichi": {
+                  "example": "syozaichi",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated shinsei and label details.",
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Successfully Updated shinsei and label details",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized – Missing or invalid authorization token.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error.",
+            "schema": {
+              "properties": {
+                "details": {
+                  "type": "string"
+                },
+                "error": {
+                  "example": "Internal Server Error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Endpoint to update an existing shinsei entry by deleting the old entry and creating a new one with updated data.",
+        "tags": [
+          "Shinsei"
         ]
       }
     },
