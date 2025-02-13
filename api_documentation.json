@@ -3,7 +3,7 @@
   "definitions": {},
   "host": "dev.wacoa.jp",
   "info": {
-    "description": "This is API documentation for the Labelprint System API. The API provides endpoints for adjusting label data and publishing news. The API requires authentication using a Bearer token. The API is hosted at `dev.wacoa.jp`.",
+    "description": "This is API documentation for the Labelprint System API. The API requires authentication using a Bearer token. The API is hosted at `dev.wacoa.jp`.",
     "termsOfService": "/tos",
     "title": "Labelprint System API",
     "version": "0.0.1"
