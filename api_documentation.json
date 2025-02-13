@@ -2817,9 +2817,9 @@
             "type": "string"
           },
           {
-            "description": "Data object containing the 'shinsei_id' and 'shinsei_user_id'.",
+            "description": "The JSON payload containing the adjustment data.",
             "in": "body",
-            "name": "data",
+            "name": "body",
             "required": true,
             "schema": {
               "properties": {
@@ -2833,8 +2833,7 @@
                 }
               },
               "type": "object"
-            },
-            "type": "object"
+            }
           }
         ],
         "responses": {
