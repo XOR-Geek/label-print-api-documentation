@@ -1267,10 +1267,6 @@
                   "example": "This is a updated group.",
                   "type": "string"
                 },
-                "insert_by": {
-                  "example": "1",
-                  "type": "string"
-                },
                 "update_by": {
                   "example": "1",
                   "type": "string"
@@ -1485,7 +1481,7 @@
             "description": "The status of the label to filter by(e.g., 1).",
             "in": "query",
             "name": "label_status",
-            "type": "number"
+            "type": "string"
           },
           {
             "description": "Start date for filtering the labels(e.g., \"2021-01-01\").",
@@ -1645,7 +1641,7 @@
             "description": "The status of the label to filter by(e.g., 1).",
             "in": "query",
             "name": "label_status",
-            "type": "number"
+            "type": "string"
           },
           {
             "description": "Start date for filtering the labels(e.g., \"2021-01-01\").",
@@ -1795,11 +1791,11 @@
             "type": "string"
           },
           {
-            "description": "The type of label to filter by(e.g., \"1\").",
+            "description": "The type of label to filter by(e.g., 1).",
             "in": "query",
             "name": "label_type",
             "required": true,
-            "type": "string"
+            "type": "number"
           },
           {
             "description": "Comma-separated list of print IDs(e.g., \"1102\").",
@@ -1902,11 +1898,11 @@
             "type": "string"
           },
           {
-            "description": "Deadline to filter by(e.g., 31).",
+            "description": "Deadline to filter by(e.g.,\"31\").",
             "in": "query",
             "name": "shimebi",
             "required": true,
-            "type": "nubmer"
+            "type": "string"
           },
           {
             "description": "The start month for the summary period(e.g., \"2019-12\").",
@@ -1923,11 +1919,11 @@
             "type": "string"
           },
           {
-            "description": "The type of summary(e.g.,1).",
+            "description": "The type of summary(e.g.,\"1\").",
             "in": "query",
             "name": "shukei_type",
             "required": true,
-            "type": "nubmer"
+            "type": "string"
           },
           {
             "description": "The group ID to filter by.",
@@ -2308,7 +2304,7 @@
             "description": "Filter by the merchandise ID.",
             "in": "query",
             "name": "merchandise_id",
-            "required": false,
+            "required": true,
             "type": "string",
             "x-example": "merch_123"
           },
@@ -2332,17 +2328,17 @@
             "description": "Filter by sekou type.",
             "in": "query",
             "name": "sekou",
-            "required": false,
+            "required": true,
             "type": "string",
             "x-example": "sekou_1"
           },
           {
-            "description": "Filter by exact ('1') or partial ('0') match.",
+            "description": "Filter by exact (1) or partial (0) match.",
             "in": "query",
             "name": "match",
             "required": false,
-            "type": "string",
-            "x-example": "1"
+            "type": "number",
+            "x-example": 1
           }
         ],
         "responses": {
@@ -2911,8 +2907,8 @@
                   "type": "string"
                 },
                 "read_flg": {
-                  "example": "0",
-                  "type": "string"
+                  "example": 0,
+                  "type": "number"
                 },
                 "read_user": {
                   "example": "user_001",
@@ -3019,8 +3015,8 @@
             "description": "Status of the Shinsei record (optional).",
             "in": "query",
             "name": "shinsei_status",
-            "type": "string",
-            "x-example": "1"
+            "type": "number",
+            "x-example": 1
           },
           {
             "description": "Type of construction (optional).",
@@ -3427,7 +3423,7 @@
             "in": "query",
             "name": "page",
             "required": false,
-            "type": "string",
+            "type": "number",
             "x-example": "1"
           }
         ],
@@ -3566,6 +3562,38 @@
             "required": false,
             "type": "string",
             "x-example": "2025-01-01"
+          },
+          {
+            "description": "Filter by the read flag(0,1).",
+            "in": "query",
+            "name": "midoku",
+            "required": false,
+            "type": "number",
+            "x-example": 1
+          },
+          {
+            "description": "Filter by merchandise ID in detail records.",
+            "in": "query",
+            "name": "product",
+            "required": false,
+            "type": "string",
+            "x-example": "product_001"
+          },
+          {
+            "description": "Filter by certification number.",
+            "in": "query",
+            "name": "certification",
+            "required": false,
+            "type": "string",
+            "x-example": "cert_123"
+          },
+          {
+            "description": "Filter by user registration number.",
+            "in": "query",
+            "name": "registration",
+            "required": false,
+            "type": "string",
+            "x-example": "reg_001"
           }
         ],
         "responses": {
@@ -3736,16 +3764,16 @@
             "in": "query",
             "name": "page",
             "required": false,
-            "type": "string",
+            "type": "number",
             "x-example": "1"
           },
           {
-            "description": "Filter by the read flag.",
+            "description": "Filter by the read flag(0,1).",
             "in": "query",
             "name": "midoku",
             "required": false,
-            "type": "string",
-            "x-example": "1"
+            "type": "number",
+            "x-example": 1
           },
           {
             "description": "Filter by merchandise ID in detail records.",
@@ -3900,7 +3928,7 @@
             "description": "The page number for pagination. Default is 1.",
             "in": "query",
             "name": "page",
-            "type": "string",
+            "type": "number",
             "x-example": "1"
           },
           {
@@ -3946,10 +3974,10 @@
             "x-example": "2025-01-31"
           },
           {
-            "description": "Read flag filter.",
+            "description": "Read flag filter(1,0).",
             "in": "query",
             "name": "midoku",
-            "type": "string",
+            "type": "number",
             "x-example": 0
           },
           {
@@ -4102,7 +4130,7 @@
             "description": "The page number for pagination. Default is 1.",
             "in": "query",
             "name": "page",
-            "type": "string",
+            "type": "number",
             "x-example": "1"
           },
           {
@@ -4148,10 +4176,10 @@
             "x-example": "2025-01-31"
           },
           {
-            "description": "Read flag filter.",
+            "description": "Read flag filter(1,0).",
             "in": "query",
             "name": "midoku",
-            "type": "string",
+            "type": "number",
             "x-example": 0
           },
           {
@@ -5029,7 +5057,7 @@
             "description": "Page number for pagination(e.g., \"1\").",
             "in": "query",
             "name": "page",
-            "type": "string"
+            "type": "number"
           },
           {
             "description": "Field to sort by(e.g., \"union_name\").",
@@ -5151,7 +5179,7 @@
             "description": "Page number for pagination(e.g., \"1\").",
             "in": "query",
             "name": "page",
-            "type": "string"
+            "type": "number"
           },
           {
             "description": "Field to sort by(e.g., \"union_name\").",
@@ -6692,6 +6720,27 @@
             "type": "string"
           },
           {
+            "description": "The tokuyu_flg flag to filter users by.",
+            "in": "query",
+            "name": "tokuyu_flg",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user system number to filter users by.",
+            "in": "query",
+            "name": "user_system_no",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The union ID to filter users by.",
+            "in": "query",
+            "name": "union_id",
+            "required": false,
+            "type": "string"
+          },
+          {
             "description": "Pagination - page number(e.g.,1\").",
             "in": "query",
             "name": "page",
@@ -6833,6 +6882,20 @@
             "type": "string"
           },
           {
+            "description": "The tokuyu_flg flag to filter users by.",
+            "in": "query",
+            "name": "tokuyu_flg",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user system number to filter users by.",
+            "in": "query",
+            "name": "user_system_no",
+            "required": false,
+            "type": "string"
+          },
+          {
             "description": "Pagination - page number (optional).",
             "in": "query",
             "name": "page",
@@ -6970,6 +7033,20 @@
             "description": "Filter by the user's type (optional)(1,2,3,4).",
             "in": "query",
             "name": "user_type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The tokuyu_flg flag to filter users by.",
+            "in": "query",
+            "name": "tokuyu_flg",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The user system number to filter users by.",
+            "in": "query",
+            "name": "user_system_no",
             "required": false,
             "type": "string"
           },
